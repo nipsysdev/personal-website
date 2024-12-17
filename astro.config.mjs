@@ -7,4 +7,8 @@ import icon from "astro-icon";
 export default defineConfig({
   prefetch: true,
   integrations: [react(), tailwind(), icon()],
+  i18n: {
+    locales: ["en", "fr"],
+    defaultLocale: "en",
+  },
 });
