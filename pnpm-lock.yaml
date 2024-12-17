@@ -23,6 +23,9 @@ importers:
       astro:
         specifier: ^5.0.5
         version: 5.0.5(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1)
+      astro-font:
+        specifier: ^0.1.81
+        version: 0.1.81
       astro-icon:
         specifier: ^1.1.4
         version: 1.1.4
@@ -1097,6 +1100,9 @@ packages:
   astro-eslint-parser@1.1.0:
     resolution: {integrity: sha512-F6NW1RJo5pp2kPnnM97M5Ohw8zAGjv83MpxHqfAochH68n/kiXN57+hYaNUCA7XkScoVNr6yzvly3hsY34TGfQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  astro-font@0.1.81:
+    resolution: {integrity: sha512-rbrv/+ZSYdgyjBlhkAqfCjMxqqo6iEwnSo/rAdDt/POILsF0ChxMFhefIIzKEukrRGtVjEj1lrLRYk+AdV9scQ==}
 
   astro-icon@1.1.4:
     resolution: {integrity: sha512-sMLkQaevIQLv38WBzb/RDbsmxhg5+X+KcNmpTi9cE6MLurNWU1MPnlO87d9Vwg4HxTenKpDlYp81A3syXFW/gw==}
@@ -4122,6 +4128,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
       - typescript
+
+  astro-font@0.1.81: {}
 
   astro-icon@1.1.4:
     dependencies:
