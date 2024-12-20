@@ -5,6 +5,7 @@ import { ClientRouter } from "astro:transitions";
 import { AstroFont } from "astro-font";
 import { Content, Lang, LangLabels } from "../i18n/i18n";
 import { Inconsolata } from "../constants/fonts";
+import { RouteUtils } from "../utils/route-utils";
 
 export interface Props {
   lang: Lang;
@@ -13,19 +14,6 @@ export interface Props {
 
 const { lang, pageTitle } = Astro.props;
 const coreContent = Content[lang].core;
-
-function getI18nUrl(lang: Lang): string {
-  let { pathname } = Astro.url;
-  Object.values(Lang).forEach((lang) => {
-    if (pathname.startsWith(`/${lang}/`)) {
-      pathname = Astro.url.pathname.slice(
-        lang.length + 1,
-        Astro.url.pathname.length,
-      );
-    }
-  });
-  return lang === Lang.En ? pathname : `/${lang}${pathname}`;
-}
 ---
 
 <!doctype html>
@@ -49,7 +37,7 @@ function getI18nUrl(lang: Lang): string {
       )
     }
     <ClientRouter />
-    <AstroFont config={[Inconsolata]}/>
+    <AstroFont config={[Inconsolata]} />
   </head>
   <body class="w-dvw h-dvh flex flex-col justify-center relative">
     <div
@@ -59,8 +47,8 @@ function getI18nUrl(lang: Lang): string {
         {
           Object.values(Lang).map((_lang) => (
             <a
-              class={lang == _lang ? "text-darkgray" : "hover:text-darkgray"}
-              href={getI18nUrl(_lang)}
+              class={`${lang == _lang ? "text-darkgray" : "hover:text-darkgray"} lowercase`}
+              href={RouteUtils.getCurrentForLang(Astro.url, _lang)}
             >
               {LangLabels[_lang]}
             </a>
@@ -69,7 +57,7 @@ function getI18nUrl(lang: Lang): string {
       </div>
 
       <a
-        class="hover:text-darkgray flex items-center text-xs sm:text-sm"
+        class="hover:text-darkgray flex items-center text-xs lowercase sm:text-sm"
         href="https://github.com/nipsysdev/personal-website"
         target="_blank"
       >

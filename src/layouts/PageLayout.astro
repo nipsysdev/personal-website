@@ -1,14 +1,17 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { fade } from "astro:transitions";
-import { Lang } from "../i18n/i18n";
+import { Content, Lang } from "../i18n/i18n";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { ViewRoute } from "../constants/routes";
+import { RouteUtils } from "../utils/route-utils";
 
 export interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-
 const transition = fade({ duration: "0.1s" });
+const coreContent = Content[lang].core;
 ---
 
 <BaseLayout lang={lang}>
@@ -17,34 +20,23 @@ const transition = fade({ duration: "0.1s" });
   >
     <div class="basis-9 flex flex-shrink-0">
       <div class="flex-auto flex gap-1">
-        <a
-          href="/"
-          class="flex items-center text-xs px-2 sm:text-sm sm:px-3 lg:text-md lg:px-5 rounded-t-md lowercase transition-colors bg-darkerslategray"
-          data-astro-prefetch
-        >
-          terminal
-        </a>
-        <a
-          href="/about-me"
-          class="flex items-center text-xs px-2 sm:text-sm sm:px-3 lg:text-md lg:px-5 rounded-t-md lowercase transition-colors bg-darkerslategray"
-          data-astro-prefetch
-        >
-          about me
-        </a>
-        <a
-          href="/experience"
-          class="flex items-center text-xs px-2 sm:text-sm sm:px-3 lg:text-md lg:px-5 rounded-t-md lowercase transition-colors bg-darkerslategray"
-          data-astro-prefetch
-        >
-          experience
-        </a>
-        <a
-          href="/blog"
-          class="flex items-center text-xs px-2 sm:text-sm sm:px-3 lg:text-md lg:px-5 rounded-t-md lowercase transition-colors bg-darkerslategray"
-          data-astro-prefetch
-        >
-          blog
-        </a>
+        {
+          Object.values(ViewRoute).map((route) => {
+            const active = RouteUtils.isView(Astro.url, route);
+            const varClasses = active
+              ? "bg-darkerslategray cursor-default"
+              : "bg-darkslategray cursor-pointer";
+            return (
+              <a
+                href={getRelativeLocaleUrl(lang, route)}
+                class={`flex items-center text-xs px-2 sm:text-sm sm:px-3 lg:text-md lg:px-5 rounded-t-md lowercase transition-colors ${varClasses}`}
+                data-astro-prefetch
+              >
+                {coreContent.views[route]}
+              </a>
+            );
+          })
+        }
       </div>
     </div>
 

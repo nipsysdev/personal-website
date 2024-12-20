@@ -8,8 +8,8 @@ export enum Lang {
 }
 
 export const LangLabels: Record<Lang, string> = {
-  [Lang.En]: "english",
-  [Lang.Fr]: "français",
+  [Lang.En]: "English",
+  [Lang.Fr]: "Français",
 };
 
 export const Content: Record<Lang, I18nContent> = {
