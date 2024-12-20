@@ -4,10 +4,10 @@ import eslintPluginAstro from "eslint-plugin-astro";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 
 export default [
-  ...eslint.configs.recommended,
+  eslint.configs.recommended,
   ...tsEslint.configs.recommended,
   ...eslintPluginAstro.configs.recommended,
-  ...jsxA11y["flatConfigs"].recommended,
+  jsxA11y["flatConfigs"].recommended,
   {
     rules: {},
   },
