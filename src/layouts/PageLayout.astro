@@ -1,20 +1,22 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { fade } from "astro:transitions";
-import { Content, Lang } from "../i18n/i18n";
+import { Lang } from "../i18n/i18nMap";
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { ViewRoute } from "../constants/routes";
-import { RouteUtils } from "../utils/route-utils";
+import { ViewRoute } from "../types/viewRoute";
+import { RouteUtils } from "../utils/routeUtils";
+import { I18n, CurrentLang } from "../stores/coreStore";
 
 export interface Props {
   lang: Lang;
 }
-const { lang } = Astro.props;
+CurrentLang.set(Astro.props.lang);
+const $lang = CurrentLang.get();
 const transition = fade({ duration: "0.1s" });
-const coreContent = Content[lang].core;
+const { core: coreContent } = I18n.get();
 ---
 
-<BaseLayout lang={lang}>
+<BaseLayout>
   <div
     class="flex flex-col size-full max-w-[1280px] max-h-[860px] overflow-hidden relative"
   >
@@ -28,7 +30,7 @@ const coreContent = Content[lang].core;
               : "bg-darkslategray cursor-pointer";
             return (
               <a
-                href={getRelativeLocaleUrl(lang, route)}
+                href={getRelativeLocaleUrl($lang, route)}
                 class={`flex items-center text-xs px-2 sm:text-sm sm:px-3 lg:text-md lg:px-5 rounded-t-md lowercase transition-colors ${varClasses}`}
                 data-astro-prefetch
               >

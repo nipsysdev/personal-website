@@ -1,9 +1,9 @@
 ---
-import Terminal from "../components/Terminal";
+import TerminalEmulator from "../components/core/TerminalEmulator";
 import PageLayout from "../layouts/PageLayout.astro";
-import { Lang } from "../i18n/i18n";
+import { Lang } from "../i18n/i18nMap";
 ---
 
 <PageLayout lang={Lang.En}>
-  <Terminal client:load />
+  <TerminalEmulator lang={Lang.En} client:load />
 </PageLayout>

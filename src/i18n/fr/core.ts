@@ -1,5 +1,5 @@
 import type { I18nCore } from "../interfaces.ts";
-import { ViewRoute } from "../../constants/routes.ts";
+import { ViewRoute } from "../../types/viewRoute.ts";
 
 export default {
   siteTitle: "Site web de Xavier Saliniere",

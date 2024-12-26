@@ -3,21 +3,21 @@ import "../styles/global.scss";
 import { Icon } from "astro-icon/components";
 import { ClientRouter } from "astro:transitions";
 import { AstroFont } from "astro-font";
-import { Content, Lang, LangLabels } from "../i18n/i18n";
+import { Lang, LangLabels } from "../i18n/i18nMap";
 import { Inconsolata } from "../constants/fonts";
-import { RouteUtils } from "../utils/route-utils";
+import { RouteUtils } from "../utils/routeUtils";
+import { I18n, CurrentLang } from "../stores/coreStore";
 
 export interface Props {
-  lang: Lang;
   pageTitle?: string;
 }
-
-const { lang, pageTitle } = Astro.props;
-const coreContent = Content[lang].core;
+const { pageTitle } = Astro.props;
+const $lang = CurrentLang.get();
+const { core: coreContent } = I18n.get();
 ---
 
 <!doctype html>
-<html lang={lang} class="text-darkgray text-lg font-medium">
+<html lang={$lang} class="text-darkgray text-lg font-medium">
   <!--suppress HtmlRequiredTitleElement -->
   <head>
     <meta charset="UTF-8" />
@@ -48,7 +48,7 @@ const coreContent = Content[lang].core;
         {
           Object.values(Lang).map((_lang) => (
             <a
-              class={`${lang == _lang ? "text-darkgray" : "hover:text-darkgray"} lowercase`}
+              class={`${$lang === _lang ? "text-darkgray" : "hover:text-darkgray"} lowercase`}
               href={RouteUtils.getCurrentForLang(Astro.url, _lang)}
             >
               {LangLabels[_lang]}
