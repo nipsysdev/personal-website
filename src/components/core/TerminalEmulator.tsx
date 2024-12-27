@@ -3,6 +3,8 @@ import {
   ShellFullscreenCmd,
   ShellHasIntroduced,
   ShellHistory,
+  ShellInput,
+  ShellSimCmd,
   ShellSubmission,
 } from "../../stores/shellStore.ts";
 import { CurrentLang, I18n } from "../../stores/coreStore.ts";
@@ -16,7 +18,9 @@ import UnknownCmdOutput from "../cmd-outputs/UnknownCmdOutput.tsx";
 export default function TerminalEmulator({ lang }: { lang: Lang }) {
   CurrentLang.set(lang);
   const $I18n = useStore(I18n);
+  const $input = useStore(ShellInput);
   const $submission = useStore(ShellSubmission);
+  const $simCmd = useStore(ShellSimCmd);
   const $history = useStore(ShellHistory);
   const $fullscreenCmd = useStore(ShellFullscreenCmd);
   const $hasIntroduced = useStore(ShellHasIntroduced);
@@ -55,6 +59,18 @@ export default function TerminalEmulator({ lang }: { lang: Lang }) {
     }, 100);
   }, [$submission]);
 
+  useEffect(() => {
+    if (!$simCmd) return;
+    mainPrompt.current?.simulate($simCmd);
+    ShellSimCmd.set("");
+  }, [$simCmd]);
+
+  useEffect(() => {
+    if (!$input) return;
+    mainPrompt.current?.setInput($input);
+    ShellInput.set("");
+  }, [$input]);
+
   const keyDownHandler = (e: KeyboardEvent<HTMLDivElement>) => {
     setLastKeyDown(e);
 
@@ -69,7 +85,7 @@ export default function TerminalEmulator({ lang }: { lang: Lang }) {
     <div
       role="button"
       tabIndex={0}
-      className="size-full flex flex-col"
+      className="size-full flex flex-col cursor-default"
       onKeyDown={keyDownHandler}
       onClick={() => mainPrompt.current?.focus()}
     >

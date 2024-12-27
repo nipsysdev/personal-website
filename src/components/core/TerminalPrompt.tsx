@@ -62,7 +62,7 @@ export default class TerminalPrompt extends Component<Props, State> {
     this.state.inputRef.current?.scrollIntoView({ behavior: "smooth" });
   }
 
-  private setInput(input: string): void {
+  setInput(input: string): void {
     this.setState((previousState) => ({ ...previousState, inputText: input }));
   }
 
