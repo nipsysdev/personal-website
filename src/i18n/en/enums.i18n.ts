@@ -5,8 +5,15 @@ import {
   PositionRole,
   PositionType,
 } from "../../types/work.ts";
+import { ViewRoute } from "../../types/viewRoute.ts";
 
 export default {
+  viewRoute: {
+    [ViewRoute.Terminal]: "Terminal",
+    [ViewRoute.AboutMe]: "About Me",
+    [ViewRoute.Experience]: "Experience",
+    [ViewRoute.Blog]: "Blog",
+  },
   companySector: {
     [CompanySector.RealEstate]: "Real Estate",
     [CompanySector.ItConsulting]: "IT Consulting",

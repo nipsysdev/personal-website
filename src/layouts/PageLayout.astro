@@ -13,7 +13,7 @@ export interface Props {
 CurrentLang.set(Astro.props.lang);
 const $lang = CurrentLang.get();
 const transition = fade({ duration: "0.1s" });
-const { core: coreContent } = I18n.get();
+const { enums } = I18n.get();
 ---
 
 <BaseLayout>
@@ -34,7 +34,7 @@ const { core: coreContent } = I18n.get();
                 class={`flex items-center text-xs px-2 sm:text-sm sm:px-3 lg:text-md lg:px-5 rounded-t-md lowercase transition-colors ${varClasses}`}
                 data-astro-prefetch
               >
-                {coreContent.views[route]}
+                {enums.viewRoute[route]}
               </a>
             );
           })

@@ -13,30 +13,12 @@ export type I18nEnum<T> = Record<T & string, string>;
 
 export interface I18nContent {
   enums: I18nEnums;
-  core: I18nCore;
-  shell: I18nShell;
   cmdDesc: I18nCmdDesc;
+  core: I18nDict;
+  shell: I18nDict;
   introOutput: I18nDict;
   setLangOutput: I18nDict;
   experience: I18nDict;
-}
-
-export interface I18nCore {
-  siteTitle: string;
-  sourceCode: string;
-  exit: string;
-  or: string;
-  na: string;
-  back: string;
-  backspace: string;
-  escape: string;
-  views: Record<ViewRoute, string>;
-}
-
-export interface I18nShell {
-  cmdLinePrefix: string;
-  unknownCmdErr: string;
-  fullScreenMode: string;
 }
 
 export interface I18nCmd {
@@ -45,6 +27,7 @@ export interface I18nCmd {
 }
 
 export interface I18nEnums {
+  viewRoute: I18nEnum<ViewRoute>;
   companySector: I18nEnum<CompanySector>;
   companySize: I18nEnum<CompanySize>;
   positionRole: I18nEnum<PositionRole>;

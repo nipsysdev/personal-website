@@ -18,18 +18,18 @@ import { Lang } from "../constants/lang.ts";
 export const I18nMap: Record<Lang, I18nContent> = {
   [Lang.En]: {
     enums: EnEnums,
+    cmdDesc: EnCmdDesc,
     core: EnCore,
     shell: EnShell,
-    cmdDesc: EnCmdDesc,
     introOutput: EnIntroOutput,
     setLangOutput: EnSetLangOutput,
     experience: EnExperience,
   },
   [Lang.Fr]: {
     enums: FrEnums,
+    cmdDesc: FrCmdDesc,
     core: FrCore,
     shell: FrShell,
-    cmdDesc: FrCmdDesc,
     introOutput: FrIntroOutput,
     setLangOutput: FrSetLangOutput,
     experience: FrExperience,
