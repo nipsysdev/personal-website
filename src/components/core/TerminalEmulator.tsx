@@ -2,6 +2,7 @@ import { useStore } from "@nanostores/react";
 import {
   ShellFullscreenCmd,
   ShellHasIntroduced,
+  ShellHasRefreshed,
   ShellHistory,
   ShellInput,
   ShellSimCmd,
@@ -27,19 +28,25 @@ export default function TerminalEmulator({ lang }: { lang: Lang }) {
   const mainPrompt = createRef<TerminalPrompt>();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [lastKeyDown, setLastKeyDown] = useState<KeyboardEvent>();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   useEffect(() => {
     mainPrompt.current?.focus();
 
-    if (!$hasIntroduced) {
+    if (!$hasIntroduced && mainPrompt.current) {
       ShellHasIntroduced.set(true);
       mainPrompt.current?.simulate(Command.Intro);
     }
-  }, []);
+  }, [mainPrompt]);
 
   useEffect(() => {
     if (!$submission) return;
     ShellSubmission.set("");
+    ShellHasRefreshed.set(false);
 
     if ($submission === "clear") {
       // TODO: Keep history, only clear terminal
@@ -106,6 +113,8 @@ export default function TerminalEmulator({ lang }: { lang: Lang }) {
   );
 
   const fullscreenView = <div className="size-full flex flex-col gap-3"></div>;
+
+  if (isLoading) return null;
 
   return (
     <div className="size-full overflow-y-scroll select-none text-sm sm:text-base">

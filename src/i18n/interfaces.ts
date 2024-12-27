@@ -4,8 +4,9 @@ import type { Command } from "../types/shell.ts";
 export interface I18nContent {
   core: I18nCore;
   shell: I18nShell;
-  introOutput: I18nIntroOutput;
   cmdDesc: I18nCmdDesc;
+  introOutput: I18nOutput;
+  setLangOutput: I18nOutput;
 }
 
 export interface I18nCore {
@@ -19,14 +20,7 @@ export interface I18nShell {
   unknownCmdErr: string;
 }
 
-export interface I18nIntroOutput {
-  welcome: string;
-  iam: string;
-  workTitle: string;
-  tabBrowsing: string;
-  cmdBrowsing: string;
-  clickable: string;
-}
+export type I18nOutput = Record<string, string>;
 
 export interface I18nCmd {
   description: string;

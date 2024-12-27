@@ -48,6 +48,7 @@ const { core: coreContent } = I18n.get();
         {
           Object.values(Lang).map((_lang) => (
             <a
+              id={`LangSwitcher-${_lang}`}
               class={`${$lang === _lang ? "text-darkgray" : "hover:text-darkgray"} lowercase`}
               href={RouteUtils.getCurrentForLang(Astro.url, _lang)}
             >
