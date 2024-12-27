@@ -1,4 +1,5 @@
-import type { FC } from "react";
+import type { ComponentType } from "react";
+import type { I18nContent } from "../i18n/interfaces.ts";
 
 export interface ShellContextData {
   i: number;
@@ -11,7 +12,7 @@ export interface ShellContextData {
 
 export interface CommandInfo {
   name: Command;
-  output?: FC;
+  output?: CommandOutput;
   fullscreen?: boolean;
   arguments?: CommandArgument[];
   options?: string[];
@@ -32,7 +33,12 @@ export interface CommandEntry {
   argValue?: string;
 }
 
-export type CommandOutput = FC<{ entry: CommandEntry }>;
+export type CommandOutput = ComponentType<CommandOutputProps>;
+
+export interface CommandOutputProps {
+  entry: CommandEntry;
+  i18nContent: I18nContent;
+}
 
 export enum Command {
   AboutMe = "about-me",

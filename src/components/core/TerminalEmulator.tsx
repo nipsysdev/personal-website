@@ -1,13 +1,14 @@
 import { useStore } from "@nanostores/react";
 import {
   ShellFullscreenCmd,
+  ShellHasIntroduced,
   ShellHistory,
   ShellSubmission,
 } from "../../stores/shellStore.ts";
 import { CurrentLang, I18n } from "../../stores/coreStore.ts";
 import { Lang } from "../../i18n/i18nMap.ts";
 import { createRef, type KeyboardEvent, useEffect, useState } from "react";
-import { TerminalPrompt } from "./TerminalPrompt.tsx";
+import TerminalPrompt from "./TerminalPrompt.tsx";
 import { Command } from "../../types/shell.ts";
 import { ParseEntry } from "../../shell/processingEntry.ts";
 import UnknownCmdOutput from "../cmd-outputs/UnknownCmdOutput.tsx";
@@ -18,13 +19,18 @@ export default function TerminalEmulator({ lang }: { lang: Lang }) {
   const $submission = useStore(ShellSubmission);
   const $history = useStore(ShellHistory);
   const $fullscreenCmd = useStore(ShellFullscreenCmd);
+  const $hasIntroduced = useStore(ShellHasIntroduced);
   const mainPrompt = createRef<TerminalPrompt>();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [lastKeyDown, setLastKeyDown] = useState<KeyboardEvent>();
 
   useEffect(() => {
     mainPrompt.current?.focus();
-    mainPrompt.current?.simulate(Command.Intro);
+
+    if (!$hasIntroduced) {
+      ShellHasIntroduced.set(true);
+      mainPrompt.current?.simulate(Command.Intro);
+    }
   }, []);
 
   useEffect(() => {
@@ -73,7 +79,7 @@ export default function TerminalEmulator({ lang }: { lang: Lang }) {
           <div key={entry.timestamp}>
             <TerminalPrompt i18nContent={$I18n} entry={entry} />
             {entry.output ? (
-              entry.output({ entry })
+              <entry.output entry={entry} i18nContent={$I18n} />
             ) : (
               <UnknownCmdOutput cmdName={entry.cmdName} />
             )}

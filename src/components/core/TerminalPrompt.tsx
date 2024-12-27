@@ -21,7 +21,7 @@ interface State {
   historyIdx: number;
 }
 
-export class TerminalPrompt extends Component<Props, State> {
+export default class TerminalPrompt extends Component<Props, State> {
   state = {
     inputText: "",
     inputRef: createRef<HTMLInputElement>(),

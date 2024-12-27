@@ -1,6 +1,6 @@
-import type { I18Shell } from "../interfaces.ts";
+import type { I18nShell } from "../interfaces.ts";
 
 export default {
   cmdLinePrefix: "visiteur@portfolio",
   unknownCmdErr: "commande non reconnue",
-} satisfies I18Shell;
+} satisfies I18nShell;
