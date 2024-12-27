@@ -1,6 +1,7 @@
 import { Lang } from "../i18n/i18nMap.ts";
 import { Command, type CommandInfo } from "../types/shell.ts";
 import IntroOutput from "../components/cmd-outputs/IntroOutput.tsx";
+import HelpOutput from "../components/cmd-outputs/HelpOutput.tsx";
 
 function enumToArg(o: { [s: string]: string } | ArrayLike<string>): string[] {
   return Object.values(o).map((l: string) => {
@@ -26,8 +27,9 @@ export default [
   },
   {
     name: Command.Help,
+    output: HelpOutput,
   },
   {
     name: Command.Clear,
   },
-] satisfies CommandInfo[];
+] as CommandInfo[];
