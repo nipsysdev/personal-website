@@ -7,7 +7,7 @@ import {
 import type { CommandEntry } from "../../types/shell.ts";
 import type { I18nContent } from "../../i18n/interfaces.ts";
 import { ShellSubmission } from "../../stores/shellStore.ts";
-import { GetEntryInput } from "../../shell/processingEntry.ts";
+import { GetEntryInput } from "../../utils/shellUtils.ts";
 
 interface Props {
   i18nContent: I18nContent;

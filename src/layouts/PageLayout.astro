@@ -1,11 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { fade } from "astro:transitions";
-import { Lang } from "../i18n/i18nMap";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { ViewRoute } from "../types/viewRoute";
 import { RouteUtils } from "../utils/routeUtils";
 import { I18n, CurrentLang } from "../stores/coreStore";
+import { Lang } from "../constants/lang";
 
 export interface Props {
   lang: Lang;

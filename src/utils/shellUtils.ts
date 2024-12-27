@@ -3,7 +3,7 @@ import {
   type CommandEntry,
   type CommandOutput,
 } from "../types/shell.ts";
-import Commands from "./commands.ts";
+import Commands from "../constants/commands.ts";
 
 function unrecognizedEntry(name: string): CommandEntry {
   return newEntry(name as Command, undefined, undefined, undefined, undefined);

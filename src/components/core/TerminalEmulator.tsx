@@ -1,6 +1,6 @@
 import { useStore } from "@nanostores/react";
 import {
-  ShellFullscreenCmd,
+  ShellFullscreenEntry,
   ShellHasIntroduced,
   ShellHasRefreshed,
   ShellHistory,
@@ -9,25 +9,23 @@ import {
   ShellSubmission,
 } from "../../stores/shellStore.ts";
 import { CurrentLang, I18n } from "../../stores/coreStore.ts";
-import { Lang } from "../../i18n/i18nMap.ts";
 import { createRef, type KeyboardEvent, useEffect, useState } from "react";
 import TerminalPrompt from "./TerminalPrompt.tsx";
-import { Command } from "../../types/shell.ts";
-import { ParseEntry } from "../../shell/processingEntry.ts";
+import { Command, type CommandEntry } from "../../types/shell.ts";
+import { ParseEntry } from "../../utils/shellUtils.ts";
 import UnknownCmdOutput from "../cmd-outputs/UnknownCmdOutput.tsx";
+import { Lang } from "../../constants/lang.ts";
 
 export default function TerminalEmulator({ lang }: { lang: Lang }) {
   CurrentLang.set(lang);
-  const $I18n = useStore(I18n);
+  const $i18n = useStore(I18n);
   const $input = useStore(ShellInput);
   const $submission = useStore(ShellSubmission);
   const $simCmd = useStore(ShellSimCmd);
   const $history = useStore(ShellHistory);
-  const $fullscreenCmd = useStore(ShellFullscreenCmd);
+  const $fullscreenEntry = useStore(ShellFullscreenEntry);
   const $hasIntroduced = useStore(ShellHasIntroduced);
   const mainPrompt = createRef<TerminalPrompt>();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [lastKeyDown, setLastKeyDown] = useState<KeyboardEvent>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -58,7 +56,7 @@ export default function TerminalEmulator({ lang }: { lang: Lang }) {
     ShellHistory.set([...$history, cmdEntry]);
 
     if (cmdEntry.fullscreen) {
-      ShellFullscreenCmd.set(cmdEntry.cmdName);
+      ShellFullscreenEntry.set(cmdEntry);
     }
 
     setTimeout(() => {
@@ -78,12 +76,15 @@ export default function TerminalEmulator({ lang }: { lang: Lang }) {
     ShellInput.set("");
   }, [$input]);
 
-  const keyDownHandler = (e: KeyboardEvent<HTMLDivElement>) => {
-    setLastKeyDown(e);
+  const exitFullscreen = () => {
+    ShellFullscreenEntry.set(undefined);
+  };
 
+  const keyDownHandler = (e: KeyboardEvent<HTMLDivElement>) => {
     switch (e.key) {
       case "Escape":
-        ShellFullscreenCmd.set(undefined);
+        ShellFullscreenEntry.set(undefined);
+        exitFullscreen();
         return;
     }
   };
@@ -100,25 +101,45 @@ export default function TerminalEmulator({ lang }: { lang: Lang }) {
         .filter((e) => !e.fullscreen)
         .map((entry) => (
           <div key={entry.timestamp}>
-            <TerminalPrompt i18nContent={$I18n} entry={entry} />
+            <TerminalPrompt i18nContent={$i18n} entry={entry} />
             {entry.output ? (
-              <entry.output entry={entry} i18nContent={$I18n} />
+              <entry.output entry={entry} i18nContent={$i18n} />
             ) : (
               <UnknownCmdOutput cmdName={entry.cmdName} />
             )}
           </div>
         ))}
-      <TerminalPrompt ref={mainPrompt} i18nContent={$I18n} history={$history} />
+      <TerminalPrompt ref={mainPrompt} i18nContent={$i18n} history={$history} />
     </div>
   );
 
-  const fullscreenView = <div className="size-full flex flex-col gap-3"></div>;
+  const fullscreenView = (entry: CommandEntry) =>
+    entry.output ? (
+      <div className="size-full flex flex-col gap-3">
+        <div className="flex-auto overflow-hidden">
+          <entry.output entry={entry} i18nContent={$i18n} />
+        </div>
+
+        <div className="flex text-steelblue">
+          <div className="flex-auto flex items-center justify-end text-sm">
+            {$i18n.shell.fullScreenMode}&nbsp;/&nbsp;
+            <button
+              className="font-bold text-darkgoldenrod cursor-pointer text-base"
+              onClick={exitFullscreen}
+            >
+              [{$i18n.core.exit}]
+            </button>
+            &nbsp;{$i18n.core.or}&nbsp;&lt;{$i18n.core.escape}&gt;
+          </div>
+        </div>
+      </div>
+    ) : null;
 
   if (isLoading) return null;
 
   return (
     <div className="size-full overflow-y-scroll select-none text-sm sm:text-base">
-      {$fullscreenCmd ? fullscreenView : standardView}
+      {$fullscreenEntry ? fullscreenView($fullscreenEntry) : standardView}
     </div>
   );
 }

@@ -3,10 +3,10 @@ import "../styles/global.scss";
 import { Icon } from "astro-icon/components";
 import { ClientRouter } from "astro:transitions";
 import { AstroFont } from "astro-font";
-import { Lang, LangLabels } from "../i18n/i18nMap";
 import { Inconsolata } from "../constants/fonts";
 import { RouteUtils } from "../utils/routeUtils";
 import { I18n, CurrentLang } from "../stores/coreStore";
+import { Lang, LangLabels } from "../constants/lang";
 
 export interface Props {
   pageTitle?: string;

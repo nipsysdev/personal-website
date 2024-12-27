@@ -4,9 +4,9 @@ import {
   type CommandInfo,
   type CommandOutputProps,
 } from "../../types/shell.ts";
-import Commands from "../../shell/commands.ts";
-import type { Lang } from "../../i18n/i18nMap.ts";
+import Commands from "../../constants/commands.ts";
 import { ShellHasRefreshed } from "../../stores/shellStore.ts";
+import { Lang } from "../../constants/lang.ts";
 
 interface State {
   changedToLang: Lang | null;

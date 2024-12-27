@@ -1,5 +1,5 @@
-import { Lang } from "../i18n/i18nMap.ts";
 import { ViewRoute } from "../types/viewRoute.ts";
+import { Lang } from "../constants/lang.ts";
 
 export const RouteUtils = {
   removeLang: (url: URL): string => {

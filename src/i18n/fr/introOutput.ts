@@ -1,4 +1,4 @@
-import type { I18nOutput } from "../interfaces.ts";
+import type { I18nDict } from "../interfaces.ts";
 
 export default {
   welcome:
@@ -10,4 +10,4 @@ export default {
     "Cette application peut être explorée en cliquant sur les onglets ci-dessus.",
   cmdBrowsing: "Ou, pour une expérience terminal, commencez par",
   clickable: "(<= cliquable)",
-} satisfies I18nOutput;
+} satisfies I18nDict;

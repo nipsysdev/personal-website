@@ -1,8 +1,9 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
-import { Lang } from "../i18n/i18nMap";
+import { Lang } from "../constants/lang";
+import ExperienceList from "../components/experience/ExperienceList";
 ---
 
 <PageLayout lang={Lang.En}>
-  <div>experience</div>
+  <ExperienceList />
 </PageLayout>
