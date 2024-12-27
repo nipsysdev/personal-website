@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { type CommandOutputProps } from "../../types/shell.ts";
 import Commands from "../../constants/commands.ts";
-import CmdLink from "../core/CmdLink.tsx";
+import CmdLink from "../shell/CmdLink.tsx";
 
 export default class HelpOutput extends Component<CommandOutputProps> {
   render() {

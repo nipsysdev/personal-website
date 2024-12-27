@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Command, type CommandOutputProps } from "../../types/shell.ts";
 import figlet from "figlet";
 import standard from "figlet/importable-fonts/Standard";
-import CmdLink from "../core/CmdLink.tsx";
+import CmdLink from "../shell/CmdLink.tsx";
 
 export default class IntroOutput extends Component<CommandOutputProps> {
   readonly name = "Xavier Saliniere";
