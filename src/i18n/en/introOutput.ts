@@ -1,6 +1,7 @@
 import type { I18nIntroOutput } from "../interfaces.ts";
 
 export default {
+  //TODO: Display hosted on Web2 by default and show hosted on Web3 with a different build conf
   welcome:
     "Welcome to my personal website, proudly hosted on the InterPlanetary File System (IPFS)!",
   iam: "I'm",
