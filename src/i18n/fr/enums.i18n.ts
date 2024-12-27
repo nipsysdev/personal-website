@@ -1,4 +1,4 @@
-import type { I18nEnums } from "../interfaces.ts";
+import type { I18nEnums } from "../i18nTypes.ts";
 import {
   CompanySector,
   CompanySize,

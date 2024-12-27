@@ -1,4 +1,4 @@
-import type { I18nCore } from "../interfaces.ts";
+import type { I18nCore } from "../i18nTypes.ts";
 import { ViewRoute } from "../../types/viewRoute.ts";
 
 export default {

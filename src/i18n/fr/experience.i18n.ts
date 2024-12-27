@@ -1,4 +1,4 @@
-import type { I18nDict } from "../interfaces.ts";
+import type { I18nDict } from "../i18nTypes.ts";
 
 export default {
   selectPosition: "sélectionnez une expérience pour en savoir plus",

@@ -5,7 +5,7 @@ import {
   type RefObject,
 } from "react";
 import type { CommandEntry } from "../../types/shell.ts";
-import type { I18nContent } from "../../i18n/interfaces.ts";
+import type { I18nContent } from "../../i18n/i18nTypes.ts";
 import { ShellSubmission } from "../../stores/shellStore.ts";
 import { GetEntryInput } from "../../utils/shellUtils.ts";
 

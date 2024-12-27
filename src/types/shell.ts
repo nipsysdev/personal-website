@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import type { I18nContent } from "../i18n/interfaces.ts";
+import type { I18nContent } from "../i18n/i18nTypes.ts";
 
 export interface ShellContextData {
   i: number;

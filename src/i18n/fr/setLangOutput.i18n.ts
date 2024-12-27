@@ -1,4 +1,4 @@
-import type { I18nDict } from "../interfaces.ts";
+import type { I18nDict } from "../i18nTypes.ts";
 
 export default {
   changed: "La langue a été changée en ",

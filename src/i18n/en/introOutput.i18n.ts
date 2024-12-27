@@ -1,4 +1,4 @@
-import type { I18nDict } from "../interfaces.ts";
+import type { I18nDict } from "../i18nTypes.ts";
 
 export default {
   //TODO: Display hosted on Web2 by default and show hosted on Web3 with a different build conf

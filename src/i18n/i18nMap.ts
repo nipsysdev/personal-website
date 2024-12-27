@@ -1,17 +1,17 @@
-import type { I18nContent } from "./interfaces.ts";
+import type { I18nContent } from "./i18nTypes.ts";
 import EnEnums from "./en/enums.i18n.ts";
-import EnCore from "./en/core.ts";
-import EnShell from "./en/shell.ts";
-import EnIntroOutput from "./en/introOutput.ts";
-import EnCmdDesc from "./en/cmdDesc.ts";
-import EnSetLangOutput from "./en/setLangOutput.ts";
+import EnCore from "./en/core.i18n.ts";
+import EnShell from "./en/shell.i18n.ts";
+import EnIntroOutput from "./en/introOutput.i18n.ts";
+import EnCmdDesc from "./en/cmdDesc.i18n.ts";
+import EnSetLangOutput from "./en/setLangOutput.i18n.ts";
 import EnExperience from "./en/experience.i18n.ts";
 import FrEnums from "./fr/enums.i18n.ts";
-import FrCore from "./fr/core.ts";
-import FrShell from "./fr/shell.ts";
-import FrIntroOutput from "./fr/introOutput.ts";
-import FrCmdDesc from "./fr/cmdDesc.ts";
-import FrSetLangOutput from "./fr/setLangOutput.ts";
+import FrCore from "./fr/core.i18n.ts";
+import FrShell from "./fr/shell.i18n.ts";
+import FrIntroOutput from "./fr/introOutput.i18n.ts";
+import FrCmdDesc from "./fr/cmdDesc.i18n.ts";
+import FrSetLangOutput from "./fr/setLangOutput.i18n.ts";
 import FrExperience from "./fr/experience.i18n.ts";
 import { Lang } from "../constants/lang.ts";
 

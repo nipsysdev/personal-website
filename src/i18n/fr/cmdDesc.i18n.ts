@@ -1,4 +1,4 @@
-import type { I18nCmdDesc } from "../interfaces.ts";
+import type { I18nCmdDesc } from "../i18nTypes.ts";
 import { Command } from "../../types/shell.ts";
 
 export default {
