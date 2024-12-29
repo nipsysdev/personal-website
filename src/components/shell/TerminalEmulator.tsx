@@ -8,16 +8,14 @@ import {
   ShellSimCmd,
   ShellSubmission,
 } from "../../stores/shellStore.ts";
-import { CurrentLang, I18n } from "../../stores/coreStore.ts";
-import { createRef, type KeyboardEvent, useEffect, useState } from "react";
+import { I18n } from "../../stores/coreStore.ts";
+import { createRef, type KeyboardEvent, useEffect } from "react";
 import TerminalPrompt from "./TerminalPrompt.tsx";
 import { Command, type CommandEntry } from "../../types/shell.ts";
 import { ParseEntry } from "../../utils/shellUtils.ts";
 import UnknownCmdOutput from "../cmd-outputs/UnknownCmdOutput.tsx";
-import { Lang } from "../../constants/lang.ts";
 
-export default function TerminalEmulator({ lang }: { lang: Lang }) {
-  CurrentLang.set(lang);
+export default function TerminalEmulator() {
   const $i18n = useStore(I18n);
   const $input = useStore(ShellInput);
   const $submission = useStore(ShellSubmission);
@@ -26,11 +24,6 @@ export default function TerminalEmulator({ lang }: { lang: Lang }) {
   const $fullscreenEntry = useStore(ShellFullscreenEntry);
   const $hasIntroduced = useStore(ShellHasIntroduced);
   const mainPrompt = createRef<TerminalPrompt>();
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
 
   useEffect(() => {
     mainPrompt.current?.focus();
@@ -114,7 +107,7 @@ export default function TerminalEmulator({ lang }: { lang: Lang }) {
   );
 
   const fullscreenView = (entry: CommandEntry) =>
-    entry.output ? (
+    entry.output && (
       <div className="size-full flex flex-col gap-3">
         <div className="flex-auto overflow-hidden">
           <entry.output entry={entry} i18nContent={$i18n} />
@@ -133,9 +126,7 @@ export default function TerminalEmulator({ lang }: { lang: Lang }) {
           </div>
         </div>
       </div>
-    ) : null;
-
-  if (isLoading) return null;
+    );
 
   return (
     <div className="size-full overflow-y-scroll select-none text-sm sm:text-base">

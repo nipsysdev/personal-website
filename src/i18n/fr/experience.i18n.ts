@@ -10,7 +10,6 @@ export default {
   contractorFor: "consultant pour",
   role: "rôle",
   contractType: "type de contrat",
-  devEnv: "env. dév.",
   period: "période",
   companyInfo: "informations sur l'entreprise",
   accomplishments: "réalisations",

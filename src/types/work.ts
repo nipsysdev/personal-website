@@ -1,3 +1,5 @@
+import type { DisplayableData } from "./common.ts";
+
 export enum Company {
   Yanport = "Yanport",
   Onepoint = "Onepoint",
@@ -38,7 +40,7 @@ export enum PositionType {
   Internship = "Internship",
 }
 
-export enum Stack {
+export enum DevTool {
   Angular = "Angular",
   AngularJS = "AngularJS",
   AngularMaterial = "AngularMaterial",
@@ -72,4 +74,18 @@ export enum Stack {
   Vue2 = "Vue2",
   Vue3 = "Vue3",
   Web3 = "Web3",
+}
+
+export interface Position {
+  id: number;
+  company: Company;
+  consultingFirm?: Company;
+  role: PositionRole;
+  isLeadRole: boolean;
+  type: PositionType;
+  mainDevTool: DevTool;
+  feDevTools: DevTool[];
+  beDevTools: DevTool[];
+  period: [Date, Date?];
+  [key: string]: DisplayableData;
 }

@@ -1,10 +1,12 @@
 ---
 import TerminalEmulator from "../../components/shell/TerminalEmulator";
 import PageLayout from "../../layouts/PageLayout.astro";
-
 import { Lang } from "../../constants/lang";
+import I18nWrapper from "../../i18n/I18nWrapper";
 ---
 
 <PageLayout lang={Lang.Fr}>
-  <TerminalEmulator lang={Lang.Fr} client:load />
+  <I18nWrapper lang={Lang.Fr} client:load>
+    <TerminalEmulator client:only="react" />
+  </I18nWrapper>
 </PageLayout>

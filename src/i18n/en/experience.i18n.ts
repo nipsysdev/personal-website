@@ -10,7 +10,6 @@ export default {
   contractorFor: "contractor for",
   role: "role",
   contractType: "contract type",
-  devEnv: "dev. env.",
   period: "period",
   companyInfo: "company info",
   accomplishments: "accomplishments",
