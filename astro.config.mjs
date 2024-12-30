@@ -11,4 +11,5 @@ export default defineConfig({
     locales: ["en", "fr"],
     defaultLocale: "en",
   },
+  site: "https://xaviers.sh",
 });
