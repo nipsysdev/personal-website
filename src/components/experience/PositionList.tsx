@@ -11,7 +11,7 @@ import { PositionType } from "../../types/work.ts";
 import type { DisplayableData } from "../../types/common.ts";
 import PositionCard from "./PositionCard.tsx";
 
-export default function ExperienceList() {
+export default function PositionList() {
   const $i18n = useStore(I18n);
   const [isGridMode, setIsGridMode] = useState(false);
   const refField = "id";
@@ -20,6 +20,10 @@ export default function ExperienceList() {
   useEffect(() => {
     setIsPrerender(false);
   }, []);
+
+  const positions = useMemo(() => {
+    return Positions.sort((a, b) => (a.id < b.id ? 1 : -1));
+  }, [Positions]);
 
   const cardGroup = useMemo<CardListGroup>(
     () => ({
@@ -33,9 +37,7 @@ export default function ExperienceList() {
           [PositionType.WorkStudy]: [],
           [PositionType.Internship]: [],
         };
-        positions
-          .sort((a, b) => (a.id < b.id ? 1 : -1))
-          .forEach((position) => grouped[position.type].push(position));
+        positions.forEach((position) => grouped[position.type].push(position));
         return grouped;
       },
     }),
@@ -74,7 +76,7 @@ export default function ExperienceList() {
           }
           refField={refField}
           columns={PositionColumns($i18n)}
-          entries={Positions}
+          entries={positions}
         />
 
         {!isPrerender && (
@@ -82,7 +84,7 @@ export default function ExperienceList() {
             className={!isGridMode ? "lg:hidden" : ""}
             refField={refField}
             group={cardGroup}
-            entries={Positions}
+            entries={positions}
             card={PositionCard}
           />
         )}

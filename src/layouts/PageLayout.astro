@@ -25,13 +25,12 @@ const { enums } = I18n.get();
         {
           Object.values(ViewRoute).map((route) => {
             const active = RouteUtils.isView(Astro.url, route);
-            const varClasses = active
-              ? "bg-darkerslategray cursor-default"
-              : "bg-darkslategray cursor-pointer";
             return (
               <a
                 href={getRelativeLocaleUrl($lang, route)}
-                class={`flex items-center text-xs px-2 sm:text-sm sm:px-3 lg:text-md lg:px-5 rounded-t-md lowercase transition-colors ${varClasses}`}
+                class={`flex items-center text-xs px-2 sm:text-sm sm:px-3 lg:text-md lg:px-5 rounded-t-md lowercase transition-colors cursor-pointer ${
+                  active ? "bg-darkerslategray" : "bg-darkslategray"
+                }`}
                 data-astro-prefetch
               >
                 {enums.viewRoute[route]}

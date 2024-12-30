@@ -9,6 +9,15 @@ export enum Company {
   Chainify = "Chainify Labs",
 }
 
+export interface CompanyInfo {
+  logo?: string;
+  logoWrapColor?: string;
+  location: string;
+  country: string;
+  size: CompanySize;
+  sector: CompanySector;
+}
+
 export enum CompanySector {
   RealEstate = "Real-Estate",
   ItConsulting = "It-Consulting",

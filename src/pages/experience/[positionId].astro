@@ -1,0 +1,21 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import { Lang } from "../../constants/lang";
+import { Positions } from "../../constants/positions";
+import PositionDetails from "../../components/experience/PositionDetails";
+import I18nWrapper from "../../i18n/I18nWrapper";
+
+export function getStaticPaths() {
+  return Positions.map((position) => ({
+    params: { positionId: position.id },
+  }));
+}
+
+const { positionId } = Astro.params;
+---
+
+<PageLayout lang={Lang.En}>
+  <I18nWrapper lang={Lang.En} client:load>
+    <PositionDetails positionId={Number(positionId)} client:load />
+  </I18nWrapper>
+</PageLayout>
