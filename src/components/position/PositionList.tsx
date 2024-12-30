@@ -10,12 +10,19 @@ import type { Position } from "../../types/work.ts";
 import { PositionType } from "../../types/work.ts";
 import type { DisplayableData } from "../../types/common.ts";
 import PositionCard from "./PositionCard.tsx";
+import { ViewRoute } from "../../types/viewRoute.ts";
+import PositionDetails from "./PositionDetails.tsx";
 
-export default function PositionList() {
+interface Props {
+  isTerminal?: boolean;
+}
+
+export default function PositionList(props: Props) {
   const $i18n = useStore(I18n);
   const [isGridMode, setIsGridMode] = useState(false);
-  const refField = "id";
   const [isPrerender, setIsPrerender] = useState(true);
+  const [selectedPosId, setSelectedPosId] = useState<number | null>(null);
+  const refField = "id";
 
   useEffect(() => {
     setIsPrerender(false);
@@ -45,50 +52,72 @@ export default function PositionList() {
   );
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between mb-3 text-sm opacity-90">
-        <div>{$i18n.experience.selectPosition}</div>
+    <>
+      {!selectedPosId && (
+        <div className="flex flex-col h-full">
+          <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between mb-3 text-sm opacity-90">
+            <div>{$i18n.experience.selectPosition}</div>
 
-        <div className="flex items-center text-right">
-          {$i18n.experience.viewMode}
-          <div className="px-3 cursor-pointer">
-            <RiTableFill
-              className={`opacity-30 lg:opacity-100 ${!isGridMode ? "lg:text-steelblue" : ""}`}
-              size={20}
-              onClick={() => setIsGridMode(false)}
-            />
+            <div className="flex items-center text-right">
+              {$i18n.experience.viewMode}
+              <div className="px-3 cursor-pointer">
+                <RiTableFill
+                  className={`opacity-30 lg:opacity-100 ${!isGridMode ? "lg:text-steelblue" : ""}`}
+                  size={20}
+                  onClick={() => setIsGridMode(false)}
+                />
+              </div>
+              /
+              <div className="px-3 cursor-pointer">
+                <RiGridFill
+                  className={`text-steelblue lg:text-darkgray ${isGridMode ? "lg:text-steelblue" : ""}`}
+                  size={20}
+                  onClick={() => setIsGridMode(true)}
+                />
+              </div>
+            </div>
           </div>
-          /
-          <div className="px-3 cursor-pointer">
-            <RiGridFill
-              className={`text-steelblue lg:text-darkgray ${isGridMode ? "lg:text-steelblue" : ""}`}
-              size={20}
-              onClick={() => setIsGridMode(true)}
+
+          <div className="flex-auto overflow-hidden">
+            <DataTable
+              className={
+                isPrerender
+                  ? ""
+                  : `hidden ${isGridMode ? "lg:hidden" : "lg:block"}`
+              }
+              refField={refField}
+              columns={PositionColumns($i18n)}
+              entries={positions}
+              anchorPath={props.isTerminal ? undefined : ViewRoute.Experience}
+              btnClick={
+                props.isTerminal
+                  ? (entry: Record<string, DisplayableData>) =>
+                      setSelectedPosId((entry as Position).id)
+                  : undefined
+              }
             />
+
+            {!isPrerender && (
+              <CardList
+                className={!isGridMode ? "lg:hidden" : ""}
+                refField={refField}
+                group={cardGroup}
+                entries={positions}
+                card={PositionCard}
+              />
+            )}
           </div>
         </div>
-      </div>
+      )}
 
-      <div className="flex-auto overflow-hidden">
-        <DataTable
-          className={
-            isPrerender ? "" : `hidden ${isGridMode ? "lg:hidden" : "lg:block"}`
+      {selectedPosId && (
+        <PositionDetails
+          positionId={selectedPosId}
+          backOnClick={
+            props.isTerminal ? () => setSelectedPosId(null) : undefined
           }
-          refField={refField}
-          columns={PositionColumns($i18n)}
-          entries={positions}
         />
-
-        {!isPrerender && (
-          <CardList
-            className={!isGridMode ? "lg:hidden" : ""}
-            refField={refField}
-            group={cardGroup}
-            entries={positions}
-            card={PositionCard}
-          />
-        )}
-      </div>
-    </div>
+      )}
+    </>
   );
 }

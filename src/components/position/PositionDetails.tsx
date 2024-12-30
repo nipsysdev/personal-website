@@ -9,6 +9,7 @@ import { ViewRoute } from "../../types/viewRoute.ts";
 
 interface Props {
   positionId: number;
+  backOnClick?: () => void;
 }
 
 export default function PositionDetails(props: Props) {
@@ -26,6 +27,25 @@ export default function PositionDetails(props: Props) {
     [],
   );
 
+  const backEl = () => {
+    const classNames = "font-bold text-darkgoldenrod cursor-pointer text-base";
+    const content = `[${$i18n.core.back}]`;
+
+    if (props.backOnClick) {
+      return (
+        <button className={classNames} onClick={props.backOnClick}>
+          {content}
+        </button>
+      );
+    }
+
+    return (
+      <a className={classNames} href={ViewRoute.Experience}>
+        {content}
+      </a>
+    );
+  };
+
   return (
     position && (
       <div className="flex flex-col h-full text-sm">
@@ -42,12 +62,7 @@ export default function PositionDetails(props: Props) {
           </div>
 
           <div className="flex items-center text-steelblue text-right">
-            <a
-              className="font-bold text-darkgoldenrod cursor-pointer text-base"
-              href={ViewRoute.Experience}
-            >
-              [{$i18n.core.back}]
-            </a>
+            {backEl()}
             &nbsp;{$i18n.core.or} &lt;{$i18n.core.backspace}&gt;
           </div>
         </div>
