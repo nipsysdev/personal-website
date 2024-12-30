@@ -89,18 +89,16 @@ export default function TerminalEmulator() {
       onKeyDown={keyDownHandler}
       onClick={() => mainPrompt.current?.focus()}
     >
-      {$history
-        .filter((e) => !e.fullscreen)
-        .map((entry) => (
-          <div key={entry.timestamp}>
-            <TerminalPrompt i18nContent={$i18n} entry={entry} />
-            {entry.output ? (
-              <entry.output entry={entry} i18nContent={$i18n} />
-            ) : (
-              <UnknownCmdOutput cmdName={entry.cmdName} />
-            )}
-          </div>
-        ))}
+      {$history.map((entry) => (
+        <div key={entry.timestamp}>
+          <TerminalPrompt i18nContent={$i18n} entry={entry} />
+          {entry.fullscreen ? null : entry.output ? (
+            <entry.output entry={entry} i18nContent={$i18n} />
+          ) : (
+            <UnknownCmdOutput cmdName={entry.cmdName} />
+          )}
+        </div>
+      ))}
       <TerminalPrompt ref={mainPrompt} i18nContent={$i18n} history={$history} />
     </div>
   );
