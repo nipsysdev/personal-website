@@ -1,6 +1,5 @@
 import { useStore } from "@nanostores/react";
 import {
-  ShellFullscreenEntry,
   ShellHasIntroduced,
   ShellHasRefreshed,
   ShellHistory,
@@ -9,7 +8,7 @@ import {
   ShellSubmission,
 } from "../../stores/shellStore.ts";
 import { I18n } from "../../stores/coreStore.ts";
-import { createRef, type KeyboardEvent, useEffect } from "react";
+import { createRef, type KeyboardEvent, useEffect, useState } from "react";
 import TerminalPrompt from "./TerminalPrompt.tsx";
 import { Command, type CommandEntry } from "../../types/shell.ts";
 import { ParseEntry } from "../../utils/shellUtils.ts";
@@ -21,8 +20,10 @@ export default function TerminalEmulator() {
   const $submission = useStore(ShellSubmission);
   const $simCmd = useStore(ShellSimCmd);
   const $history = useStore(ShellHistory);
-  const $fullscreenEntry = useStore(ShellFullscreenEntry);
   const $hasIntroduced = useStore(ShellHasIntroduced);
+  const [fullscreenEntry, setFullscreenEntry] = useState<CommandEntry | null>(
+    null,
+  );
   const mainPrompt = createRef<TerminalPrompt>();
 
   useEffect(() => {
@@ -49,7 +50,7 @@ export default function TerminalEmulator() {
     ShellHistory.set([...$history, cmdEntry]);
 
     if (cmdEntry.fullscreen) {
-      ShellFullscreenEntry.set(cmdEntry);
+      setFullscreenEntry(cmdEntry);
     }
 
     setTimeout(() => {
@@ -70,15 +71,13 @@ export default function TerminalEmulator() {
   }, [$input]);
 
   const exitFullscreen = () => {
-    ShellFullscreenEntry.set(undefined);
+    setFullscreenEntry(null);
   };
 
   const keyDownHandler = (e: KeyboardEvent<HTMLDivElement>) => {
     switch (e.key) {
       case "Escape":
-        ShellFullscreenEntry.set(undefined);
         exitFullscreen();
-        return;
     }
   };
 
@@ -130,7 +129,7 @@ export default function TerminalEmulator() {
 
   return (
     <div className="size-full overflow-y-scroll select-none text-sm sm:text-base">
-      {$fullscreenEntry ? fullscreenView($fullscreenEntry) : standardView}
+      {fullscreenEntry ? fullscreenView(fullscreenEntry) : standardView}
     </div>
   );
 }
