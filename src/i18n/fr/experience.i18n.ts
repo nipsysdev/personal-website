@@ -1,8 +1,10 @@
 import type { I18nDict } from "../i18nTypes.ts";
 
 export default {
-  selectPosition: "sélectionnez une expérience pour en savoir plus",
-  viewMode: "mode d'affichage:",
+  selectPosition: "sélectionnez un poste pour en savoir plus",
+  viewMode: "mode d'affichage",
+  myExperience: "Mon expérience",
+  positions: "postes",
   positionDescription: "description du poste",
   introduction: "présentation",
   company: "entreprise",

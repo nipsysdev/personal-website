@@ -13,7 +13,7 @@ export interface Props {
 CurrentLang.set(Astro.props.lang);
 const $lang = CurrentLang.get();
 const transition = fade({ duration: "0.1s" });
-const { enums } = I18n.get();
+const { core, enums } = I18n.get();
 ---
 
 <BaseLayout>
@@ -42,10 +42,40 @@ const { enums } = I18n.get();
     </div>
 
     <div
-      class="bg-darkerslategray flex-auto rounded-tr-md rounded-b-md overflow-hidden relative p-5"
+      class="bg-darkerslategray flex-auto flex flex-col rounded-tr-md rounded-b-md overflow-hidden relative p-5"
       transition:animate={transition}
     >
+      <div
+        class="absolute top-2 right-2 z-10 rounded-full bg-darkerslategray overflow-hidden"
+      >
+        <div
+          id="Web2_3-switch"
+          class={`${$lang === Lang.En ? "w-48" : "w-72"} h-5 border border-solid rounded-full text-xs transition-all text-center cursor-default leading-normal`}
+        >
+          {core.web2}&nbsp;<span class="text-darkgoldenrod cursor-pointer"
+            >{core.goWeb3}</span
+          >
+        </div>
+      </div>
       <slot />
     </div>
   </div>
+
+  <script>
+    setTimeout(() => {
+      const web2_3Switch = document.getElementById("Web2_3-switch");
+      web2_3Switch?.classList.add("active");
+      setTimeout(() => {
+        web2_3Switch?.classList.remove("active");
+      }, 3000);
+    }, 500);
+  </script>
+
+  <style lang="scss">
+    #Web2_3-switch {
+      &:not(.active):not(:hover) {
+        @apply w-12 opacity-65;
+      }
+    }
+  </style>
 </BaseLayout>

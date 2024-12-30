@@ -49,8 +49,8 @@ export default function PositionDetails(props: Props) {
   return (
     position && (
       <div className="flex flex-col h-full text-sm">
-        <div className="flex items-center gap-x-5">
-          <div className="flex flex-auto items-center border-y-2 border-darkslategray text-base">
+        <div className="flex justify-between items-end gap-x-5">
+          <div className="flex basis-5/6 items-center border-y-2 border-darkslategray text-base">
             <div className="text-lg font-bold bg-steelblue/60 px-5 py-1">
               #{props.positionId}&nbsp;{position.company}
             </div>

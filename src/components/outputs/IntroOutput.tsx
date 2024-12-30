@@ -36,6 +36,7 @@ export default class IntroOutput extends Component<CommandOutputProps> {
           <span className="text-lightseagreen font-bold">{this.name}</span>
           {this.props.i18nContent.introOutput.workTitle}
         </p>
+
         <p className="leading-5 my-3">
           {this.props.i18nContent.introOutput.tabBrowsing}
           <br />

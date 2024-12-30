@@ -39,7 +39,9 @@ export default function CardList(props: Props) {
     >
       {groupKeys.map((key, groupIdx) => (
         <div key={key}>
-          <div className="text-sm mb-3 border-y border-darkslategray">
+          <div
+            className={`text-sm mb-3 ${!groupIdx ? "border-b" : "border-y"} border-darkslategray`}
+          >
             <h3 className="text-sm lowercase bg-darkslategray px-2 py-1 w-fit">
               {props.group.name(key)}
             </h3>

@@ -2,7 +2,9 @@ import type { I18nDict } from "../i18nTypes.ts";
 
 export default {
   selectPosition: "select a position to learn more",
-  viewMode: "view mode:",
+  viewMode: "view mode",
+  myExperience: "My Experience",
+  positions: "positions",
   positionDescription: "position description",
   introduction: "introduction",
   company: "company",

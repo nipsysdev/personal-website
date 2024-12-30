@@ -55,47 +55,69 @@ export default function PositionList(props: Props) {
     <>
       {!selectedPosId && (
         <div className="flex flex-col h-full">
-          <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between mb-3 text-sm opacity-90">
-            <div>{$i18n.experience.selectPosition}</div>
-
-            <div className="flex items-center text-right">
-              {$i18n.experience.viewMode}
-              <div className="px-3 cursor-pointer">
-                <RiTableFill
-                  className={`opacity-30 lg:opacity-100 ${!isGridMode ? "lg:text-steelblue" : ""}`}
-                  size={20}
-                  onClick={() => setIsGridMode(false)}
-                />
+          {/* TODO: Extract a page title component */}
+          <div className="flex items-end gap-x-5 w-full">
+            <div className="flex basis-5/6 items-center border-y-2 border-darkslategray text-sm">
+              <div className="text-lg font-bold bg-steelblue/60 px-5 py-1">
+                {$i18n.experience.myExperience}
               </div>
-              /
-              <div className="px-3 cursor-pointer">
-                <RiGridFill
-                  className={`text-steelblue lg:text-darkgray ${isGridMode ? "lg:text-steelblue" : ""}`}
-                  size={20}
-                  onClick={() => setIsGridMode(true)}
-                />
+              <div className="flex-auto pl-7">
+                {$i18n.experience.selectPosition}
+              </div>
+              <div className="pr-7">
+                <div className="flex items-center text-right">
+                  {$i18n.experience.viewMode}:
+                  <div className="px-2 cursor-pointer">
+                    <RiTableFill
+                      className={`opacity-30 lg:opacity-100 ${!isGridMode ? "lg:text-steelblue" : ""}`}
+                      size={20}
+                      onClick={() => setIsGridMode(false)}
+                    />
+                  </div>
+                  /
+                  <div className="px-2 cursor-pointer">
+                    <RiGridFill
+                      className={`text-steelblue lg:text-darkgray ${isGridMode ? "lg:text-steelblue" : ""}`}
+                      size={20}
+                      onClick={() => setIsGridMode(true)}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
           <div className="flex-auto overflow-hidden">
-            <DataTable
-              className={
+            <div
+              className={`flex-col size-full ${
                 isPrerender
                   ? ""
-                  : `hidden ${isGridMode ? "lg:hidden" : "lg:block"}`
-              }
-              refField={refField}
-              columns={PositionColumns($i18n)}
-              entries={positions}
-              anchorPath={props.isTerminal ? undefined : ViewRoute.Experience}
-              btnClick={
-                props.isTerminal
-                  ? (entry: Record<string, DisplayableData>) =>
-                      setSelectedPosId((entry as Position).id)
-                  : undefined
-              }
-            />
+                  : `hidden ${isGridMode ? "lg:hidden" : "lg:flex"}`
+              }`}
+            >
+              <div className="border-b border-darkslategray">
+                <div className="bg-darkslategray px-2 py-1 w-fit text-sm">
+                  {$i18n.experience.positions}
+                </div>
+              </div>
+
+              <div className="flex-auto">
+                <DataTable
+                  refField={refField}
+                  columns={PositionColumns($i18n)}
+                  entries={positions}
+                  anchorPath={
+                    props.isTerminal ? undefined : ViewRoute.Experience
+                  }
+                  btnClick={
+                    props.isTerminal
+                      ? (entry: Record<string, DisplayableData>) =>
+                          setSelectedPosId((entry as Position).id)
+                      : undefined
+                  }
+                />
+              </div>
+            </div>
 
             {!isPrerender && (
               <CardList

@@ -1,8 +1,7 @@
 import type { I18nDict } from "../i18nTypes.ts";
 
 export default {
-  welcome:
-    "Bienvenue sur mon site personnel, fièrement hébergé sur l'InterPlanetary File System (IPFS) !",
+  welcome: "Bienvenue sur mon site personnel 🖖",
   iam: "Je suis",
   workTitle:
     ", développeur senior d'applications Web et constructeur Web3 en devenir.",
