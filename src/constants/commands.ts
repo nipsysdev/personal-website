@@ -1,9 +1,9 @@
 import { Command, type CommandInfo } from "../types/shell.ts";
-import IntroOutput from "../components/cmd-outputs/IntroOutput.tsx";
-import HelpOutput from "../components/cmd-outputs/HelpOutput.tsx";
-import SetLangOutput from "../components/cmd-outputs/SetLangOutput.tsx";
+import IntroOutput from "../components/outputs/IntroOutput.tsx";
+import HelpOutput from "../components/outputs/HelpOutput.tsx";
+import SetLangOutput from "../components/outputs/SetLangOutput.tsx";
 import { Lang } from "./lang.ts";
-import ExperienceOutput from "../components/cmd-outputs/ExperienceOutput.tsx";
+import ExperienceOutput from "../components/outputs/ExperienceOutput.tsx";
 
 function enumToArg(o: { [s: string]: string } | ArrayLike<string>): string[] {
   return Object.values(o).map((l: string) => {

@@ -13,7 +13,7 @@ import { createRef, type KeyboardEvent, useEffect } from "react";
 import TerminalPrompt from "./TerminalPrompt.tsx";
 import { Command, type CommandEntry } from "../../types/shell.ts";
 import { ParseEntry } from "../../utils/shellUtils.ts";
-import UnknownCmdOutput from "../cmd-outputs/UnknownCmdOutput.tsx";
+import UnknownCmdOutput from "../outputs/UnknownCmdOutput.tsx";
 
 export default function TerminalEmulator() {
   const $i18n = useStore(I18n);
