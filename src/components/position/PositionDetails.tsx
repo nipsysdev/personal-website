@@ -96,11 +96,9 @@ export default function PositionDetails(props: Props) {
                       backgroundColor: company.logoWrapColor,
                     }}
                   >
-                    <img
-                      src={company.logo}
-                      alt="img"
-                      className="aspect-video w-1/2 mx-auto"
-                    />
+                    {company.logo && (
+                      <company.logo className="aspect-video w-1/2 h-full mx-auto" />
+                    )}
                   </div>
 
                   <div className="grid grid-cols-2 gap-y-3 w-full">

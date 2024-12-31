@@ -4,14 +4,14 @@ import {
   CompanySector,
   CompanySize,
 } from "../types/work.ts";
-import bellLogo from "../assets/logos/bell.webp";
-import chainifyLogo from "../assets/logos/chainify.webp";
-import renaultDigitalLogo from "../assets/logos/renault-digital.webp";
-import yanportLogo from "../assets/logos/yanport.webp";
+import BellLogo from "../components/svg/BellLogo.tsx";
+import ChainifyLogo from "../components/svg/ChainifyLogo.tsx";
+import RenaultDigitalLogo from "../components/svg/RenaultDigitalLogo.tsx";
+import YanportLogo from "../components/svg/YanportLogo.tsx";
 
 export const Companies: Record<Company, CompanyInfo> = {
   Yanport: {
-    logo: yanportLogo.src,
+    logo: YanportLogo,
     logoWrapColor: "#1b46a5",
     location: "Levallois-Perret, Hauts-de-Seine",
     country: "France",
@@ -25,7 +25,7 @@ export const Companies: Record<Company, CompanyInfo> = {
     sector: CompanySector.ItConsulting,
   },
   [Company.RenaultDigital]: {
-    logo: renaultDigitalLogo.src,
+    logo: RenaultDigitalLogo,
     logoWrapColor: "#000",
     location: "Boulogne-Billancourt, Hauts-de-Seine",
     country: "France",
@@ -39,7 +39,7 @@ export const Companies: Record<Company, CompanyInfo> = {
     sector: CompanySector.ItConsulting,
   },
   Bell: {
-    logo: bellLogo.src,
+    logo: BellLogo,
     logoWrapColor: "#295296",
     location: "Montréal, Québec",
     country: "Canada",
@@ -47,7 +47,7 @@ export const Companies: Record<Company, CompanyInfo> = {
     sector: CompanySector.Telecommunications,
   },
   [Company.Chainify]: {
-    logo: chainifyLogo.src,
+    logo: ChainifyLogo,
     logoWrapColor: "#000",
     location: "Sheridan, Wyoming",
     country: "United-States",

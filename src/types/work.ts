@@ -1,4 +1,5 @@
 import type { DisplayableData } from "./common.ts";
+import type { JSX } from "react";
 
 export enum Company {
   Yanport = "Yanport",
@@ -10,7 +11,7 @@ export enum Company {
 }
 
 export interface CompanyInfo {
-  logo?: string;
+  logo?: (props: { className: string }) => JSX.Element;
   logoWrapColor?: string;
   location: string;
   country: string;
