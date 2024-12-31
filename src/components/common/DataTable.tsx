@@ -31,8 +31,8 @@ export default function DataTable(props: Props) {
     i: number,
     children: JSX.Element[],
   ) => {
+    const key = `${entry[props.refField]}`;
     let attr = {
-      key: `${entry[props.refField]}`,
       role: undefined as string | undefined,
       tabIndex: undefined as number | undefined,
       onClick: undefined as (() => void) | undefined,
@@ -42,7 +42,11 @@ export default function DataTable(props: Props) {
 
     if (props.anchorPath) {
       return (
-        <a {...attr} href={`${props.anchorPath}/${entry[props.refField]}`}>
+        <a
+          key={key}
+          {...attr}
+          href={`${props.anchorPath}/${entry[props.refField]}`}
+        >
           {children}
         </a>
       );
@@ -63,7 +67,11 @@ export default function DataTable(props: Props) {
       );
     }
 
-    return <div {...attr}>{children}</div>;
+    return (
+      <div key={key} {...attr}>
+        {children}
+      </div>
+    );
   };
 
   return (
