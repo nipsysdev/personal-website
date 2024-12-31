@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { fade } from "astro:transitions";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { ViewRoute } from "../types/viewRoute";
 import { RouteUtils } from "../utils/routeUtils";
@@ -12,7 +11,6 @@ export interface Props {
 }
 CurrentLang.set(Astro.props.lang);
 const $lang = CurrentLang.get();
-const transition = fade({ duration: "0.1s" });
 const { core, enums } = I18n.get();
 ---
 
@@ -43,7 +41,6 @@ const { core, enums } = I18n.get();
 
     <div
       class="bg-darkerslategray flex-auto flex flex-col rounded-tr-md rounded-b-md overflow-hidden relative p-5"
-      transition:animate={transition}
     >
       <div
         class="absolute top-2 right-2 z-10 rounded-full bg-darkerslategray overflow-hidden"
