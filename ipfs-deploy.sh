@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "-- Running build"
-pnpm run build
+astro build --mode web3
 cd dist || exit
 rm CNAME
 printf "\n\n-- Uploading files\n"

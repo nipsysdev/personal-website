@@ -12,6 +12,7 @@ export interface Props {
 CurrentLang.set(Astro.props.lang);
 const $lang = CurrentLang.get();
 const { core, enums } = I18n.get();
+const isWeb3 = import.meta.env.IS_WEB3 === "true";
 ---
 
 <BaseLayout>
@@ -45,33 +46,38 @@ const { core, enums } = I18n.get();
       <div
         class="absolute top-2 right-2 z-10 rounded-full bg-darkerslategray overflow-hidden"
       >
-        <div
-          id="Web2_3-switch"
-          class={`${$lang === Lang.En ? "w-48" : "w-72"} h-5 border border-solid rounded-full text-xs transition-all text-center cursor-default leading-normal`}
-        >
-          {core.web2}&nbsp;<span class="text-darkgoldenrod cursor-pointer"
-            >{core.goWeb3}</span
-          >
-        </div>
+        {
+          isWeb3 ? (
+            <div
+              class={`web2_3-indicator ${$lang === Lang.En ? "w-40" : "w-52"} border-darkgoldenrod text-darkgoldenrod`}
+            >
+              {core.web3}
+            </div>
+          ) : (
+            <div
+              class={`web2_3-indicator ${$lang === Lang.En ? "w-48" : "w-72"}`}
+            >
+              {core.web2}
+              <a
+                href="https://nipsys.eth.limo/"
+                class="text-darkgoldenrod cursor-pointer"
+              >
+                {core.goWeb3}
+              </a>
+            </div>
+          )
+        }
       </div>
       <slot />
     </div>
   </div>
 
-  <script>
-    setTimeout(() => {
-      const web2_3Switch = document.getElementById("Web2_3-switch");
-      web2_3Switch?.classList.add("active");
-      setTimeout(() => {
-        web2_3Switch?.classList.remove("active");
-      }, 3000);
-    }, 500);
-  </script>
-
   <style lang="scss">
-    #Web2_3-switch {
-      &:not(.active):not(:hover) {
-        @apply w-12 opacity-65;
+    .web2_3-indicator {
+      @apply h-5 border border-solid rounded-full text-xs transition-all text-center cursor-default leading-normal;
+
+      &:not(:hover) {
+        @apply w-12 opacity-80;
       }
     }
   </style>
