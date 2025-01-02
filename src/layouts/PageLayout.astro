@@ -5,9 +5,13 @@ import { ViewRoute } from "../types/viewRoute";
 import { RouteUtils } from "../utils/routeUtils";
 import { I18n, CurrentLang } from "../stores/coreStore";
 import { Lang } from "../constants/lang";
+import "dayjs/locale/en";
+import "dayjs/locale/fr";
+import dayjs from "dayjs";
 
 const currentLang = (Astro.currentLocale as Lang | undefined) ?? Lang.En;
 CurrentLang.set(currentLang);
+dayjs.locale(currentLang);
 const { core, enums } = I18n.get();
 const isWeb3 = import.meta.env.IS_WEB3 === "true";
 ---
