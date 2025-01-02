@@ -77,7 +77,7 @@ export default function DataTable(props: Props) {
   return (
     <>
       <div
-        className={`data-table size-full overflow-y-auto ${props.className}`}
+        className={`data-table size-full overflow-y-auto ${props.className ?? ""}`}
       >
         <div className="flex flex-col h-full">
           <div className="table table-fixed w-full flex-shrink-0">

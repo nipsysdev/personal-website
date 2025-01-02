@@ -1,5 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { I18n } from "../../stores/coreStore.ts";
+import { CurrentLang, I18n } from "../../stores/coreStore.ts";
 import { RiGridFill, RiTableFill } from "react-icons/ri";
 import DataTable from "../common/DataTable.tsx";
 import PositionColumns from "../../constants/table-data/positionColumns.ts";
@@ -12,12 +12,14 @@ import type { DisplayableData } from "../../types/common.ts";
 import PositionCard from "./PositionCard.tsx";
 import { ViewRoute } from "../../types/viewRoute.ts";
 import PositionDetails from "./PositionDetails.tsx";
+import { RouteUtils } from "../../utils/routeUtils.ts";
 
 interface Props {
   isTerminal?: boolean;
 }
 
 export default function PositionList(props: Props) {
+  const $lang = useStore(CurrentLang);
   const $i18n = useStore(I18n);
   const [isGridMode, setIsGridMode] = useState(false);
   const [isPrerender, setIsPrerender] = useState(true);
@@ -107,7 +109,9 @@ export default function PositionList(props: Props) {
                   columns={PositionColumns($i18n)}
                   entries={positions}
                   anchorPath={
-                    props.isTerminal ? undefined : ViewRoute.Experience
+                    props.isTerminal
+                      ? undefined
+                      : RouteUtils.getPathForLang(ViewRoute.Experience, $lang)
                   }
                   btnClick={
                     props.isTerminal

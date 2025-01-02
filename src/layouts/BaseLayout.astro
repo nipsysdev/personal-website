@@ -48,7 +48,7 @@ const { core: coreContent } = I18n.get();
             <a
               id={`LangSwitcher-${_lang}`}
               class={`${$lang === _lang ? "text-darkgray" : "hover:text-darkgray"} lowercase`}
-              href={RouteUtils.getCurrentForLang(Astro.url, _lang)}
+              href={RouteUtils.getUrlForLang(Astro.url, _lang)}
             >
               {LangLabels[_lang]}
             </a>

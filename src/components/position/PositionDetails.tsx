@@ -1,4 +1,4 @@
-import { I18n } from "../../stores/coreStore.ts";
+import { CurrentLang, I18n } from "../../stores/coreStore.ts";
 import { useStore } from "@nanostores/react";
 import { useMemo } from "react";
 import { Positions } from "../../constants/positions.ts";
@@ -6,6 +6,7 @@ import { FormatWorkPeriod } from "../../utils/position-formatting.ts";
 import { Companies } from "../../constants/companies.ts";
 import { PositionRole } from "../../types/work.ts";
 import { ViewRoute } from "../../types/viewRoute.ts";
+import { RouteUtils } from "../../utils/routeUtils.ts";
 
 interface Props {
   positionId: number;
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export default function PositionDetails(props: Props) {
+  const $lang = useStore(CurrentLang);
   const $i18n = useStore(I18n);
   const position = useMemo(
     () => Positions.find((pos) => pos.id === props.positionId),
@@ -40,7 +42,10 @@ export default function PositionDetails(props: Props) {
     }
 
     return (
-      <a className={classNames} href={ViewRoute.Experience}>
+      <a
+        className={classNames}
+        href={RouteUtils.getPathForLang(ViewRoute.Experience, $lang)}
+      >
         {content}
       </a>
     );
@@ -61,7 +66,7 @@ export default function PositionDetails(props: Props) {
             <div className="pr-7">{FormatWorkPeriod(position, $i18n)}</div>
           </div>
 
-          <div className="flex items-center text-steelblue text-right">
+          <div className="flex items-center text-steelblue text-right text-nowrap">
             {backEl()}
             &nbsp;{$i18n.core.or} &lt;{$i18n.core.backspace}&gt;
           </div>
