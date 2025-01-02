@@ -6,11 +6,8 @@ import { RouteUtils } from "../utils/routeUtils";
 import { I18n, CurrentLang } from "../stores/coreStore";
 import { Lang } from "../constants/lang";
 
-export interface Props {
-  lang: Lang;
-}
-CurrentLang.set(Astro.props.lang);
-const $lang = CurrentLang.get();
+const currentLang = (Astro.currentLocale as Lang | undefined) ?? Lang.En;
+CurrentLang.set(currentLang);
 const { core, enums } = I18n.get();
 const isWeb3 = import.meta.env.IS_WEB3 === "true";
 ---
@@ -26,7 +23,7 @@ const isWeb3 = import.meta.env.IS_WEB3 === "true";
             const active = RouteUtils.isView(Astro.url, route);
             return (
               <a
-                href={getRelativeLocaleUrl($lang, route)}
+                href={getRelativeLocaleUrl(currentLang, route)}
                 class={`flex items-center text-xs px-2 sm:text-sm sm:px-3 lg:text-md lg:px-5 rounded-t-md lowercase transition-colors cursor-pointer ${
                   active ? "bg-darkerslategray" : "bg-darkslategray"
                 }`}
@@ -49,17 +46,17 @@ const isWeb3 = import.meta.env.IS_WEB3 === "true";
         {
           isWeb3 ? (
             <div
-              class={`web2_3-indicator ${$lang === Lang.En ? "w-40" : "w-52"} border-darkgoldenrod text-darkgoldenrod`}
+              class={`web2_3-indicator ${currentLang === Lang.En ? "w-40" : "w-52"} border-darkgoldenrod text-darkgoldenrod`}
             >
               {core.web3}
             </div>
           ) : (
             <div
-              class={`web2_3-indicator ${$lang === Lang.En ? "w-48" : "w-72"}`}
+              class={`web2_3-indicator ${currentLang === Lang.En ? "w-48" : "w-72"}`}
             >
               {core.web2}
               <a
-                href={`https://nipsys.eth.limo${RouteUtils.getUrlForLang(Astro.url, $lang)}`}
+                href={`https://nipsys.eth.limo${RouteUtils.getUrlForLang(Astro.url, currentLang)}`}
                 class="text-darkgoldenrod cursor-pointer"
               >
                 {core.goWeb3}

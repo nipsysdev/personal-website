@@ -1,12 +1,11 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
-import { Lang } from "../constants/lang";
 import PositionList from "../components/position/PositionList";
 import I18nWrapper from "../i18n/I18nWrapper";
 ---
 
-<PageLayout lang={Lang.En}>
-  <I18nWrapper lang={Lang.En} client:load>
+<PageLayout>
+  <I18nWrapper lang={Astro.currentLocale} client:load>
     <PositionList client:load />
   </I18nWrapper>
 </PageLayout>
