@@ -52,11 +52,13 @@ export default function TerminalEmulator() {
     if (cmdEntry.fullscreen) {
       setFullscreenEntry(cmdEntry);
     }
+  }, [$submission]);
 
+  useEffect(() => {
     setTimeout(() => {
       mainPrompt.current?.scrollIntoView();
     }, 100);
-  }, [$submission]);
+  }, [$history]);
 
   useEffect(() => {
     if (!$simCmd) return;
