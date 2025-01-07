@@ -14,6 +14,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:web3": "astro build --mode web3",
     "preview": "astro preview",
     "astro": "astro"
   },

@@ -1,0 +1,47 @@
+name: Web3 Build
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node using mise
+        uses: jdx/mise-action@v2
+
+      - name: Install Deps
+        shell: bash
+        run: pnpm i
+
+      - name: Build
+        run: |
+          pnpm build:web3
+          rm ./dist/CNAME
+
+      - name: Upload artifact
+        id: artifactUpload
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./dist/
+
+      - name: Output artifact ID
+        run: echo 'Artifact ID is ${{ steps.artifactUpload.outputs.artifact-id }}'
+
+      - name: Request artifact pinning
+        id: pinRequest
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: "https://ipfs.nipsys.dev/pin?artifactId=${{steps.artifactUpload.outputs.artifact-id}}"
+          method: 'GET'
+          timeout: '60000'
+          bearerToken: ${{ secrets.PIN_BEARER }}
+
+      - name: Output CID
+        run: echo ${{ fromJson(steps.pinRequest.outputs.response).cid }}
