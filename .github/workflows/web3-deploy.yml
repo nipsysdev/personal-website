@@ -1,4 +1,4 @@
-name: Web3 Build
+name: Web3 Deploy
 
 on:
   push:
@@ -16,11 +16,11 @@ jobs:
       - name: Setup Node using mise
         uses: jdx/mise-action@v2
 
-      - name: Install Deps
+      - name: Install Node dependencies
         shell: bash
         run: pnpm i
 
-      - name: Build
+      - name: Build for Web3
         run: |
           pnpm build:web3
           rm ./dist/CNAME
@@ -30,15 +30,18 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           path: ./dist/
+    outputs:
+      artifactId: ${{ steps.artifactUpload.outputs.artifact-id }}
 
-      - name: Output artifact ID
-        run: echo 'Artifact ID is ${{ steps.artifactUpload.outputs.artifact-id }}'
-
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Request artifact pinning
         id: pinRequest
         uses: fjogeleit/http-request-action@v1
         with:
-          url: "https://ipfs.nipsys.dev/pin?artifactId=${{steps.artifactUpload.outputs.artifact-id}}"
+          url: "https://ipfs.nipsys.dev/pin?artifactId=${{ needs.build.outputs.artifactId }}"
           method: 'GET'
           timeout: '60000'
           bearerToken: ${{ secrets.PIN_BEARER }}
