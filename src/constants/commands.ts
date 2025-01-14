@@ -13,12 +13,18 @@ function enumToArg(o: { [s: string]: string } | ArrayLike<string>): string[] {
 
 export default [
   {
-    name: Command.AboutMe,
+    name: Command.Whoami,
   },
   {
     name: Command.Experience,
     fullscreen: true,
     output: ExperienceOutput,
+  },
+  {
+    name: Command.Blog,
+  },
+  {
+    name: Command.Contact,
   },
   {
     name: Command.SetLang,

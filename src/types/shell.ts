@@ -41,8 +41,10 @@ export interface CommandOutputProps {
 }
 
 export enum Command {
-  AboutMe = "about-me",
+  Whoami = "whoami",
   Experience = "experience",
+  Blog = "blog",
+  Contact = "contact",
   Intro = "intro",
   Help = "help",
   SetLang = "set-lang",

@@ -10,9 +10,10 @@ import { ViewRoute } from "../../types/viewRoute.ts";
 export default {
   viewRoute: {
     [ViewRoute.Terminal]: "Terminal",
-    [ViewRoute.AboutMe]: "À propos de moi",
+    [ViewRoute.Whoami]: "Qui suis-je",
     [ViewRoute.Experience]: "Expérience",
     [ViewRoute.Blog]: "Blog",
+    [ViewRoute.Contact]: "Contact",
   },
   companySector: {
     [CompanySector.RealEstate]: "Immobilier",

@@ -1,6 +1,7 @@
 export enum ViewRoute {
   Terminal = "/",
-  AboutMe = "/about-me",
+  Whoami = "/whoami",
   Experience = "/experience",
   Blog = "/blog",
+  Contact = "/contact",
 }
