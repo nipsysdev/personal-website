@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@astrojs/react':
-        specifier: ^4.1.2
-        version: 4.1.2(@types/node@22.10.2)(@types/react-dom@19.0.2(@types/react@19.0.1))(@types/react@19.0.1)(jiti@1.21.6)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0)(yaml@2.6.1)
+        specifier: ^4.1.4
+        version: 4.1.4(@types/node@22.10.2)(@types/react-dom@19.0.2(@types/react@19.0.1))(@types/react@19.0.1)(jiti@1.21.6)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0)(yaml@2.6.1)
       '@astrojs/tailwind':
         specifier: ^5.1.4
-        version: 5.1.4(astro@5.1.1(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1))(tailwindcss@3.4.16)
+        version: 5.1.4(astro@5.1.6(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1))(tailwindcss@3.4.16)
       '@nanostores/react':
         specifier: ^0.8.4
         version: 0.8.4(nanostores@0.11.3)(react@19.0.0)
@@ -24,8 +24,8 @@ importers:
         specifier: ^19.0.2
         version: 19.0.2(@types/react@19.0.1)
       astro:
-        specifier: ^5.1.1
-        version: 5.1.1(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1)
+        specifier: ^5.1.6
+        version: 5.1.6(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1)
       astro-font:
         specifier: ^0.1.81
         version: 0.1.81
@@ -34,7 +34,7 @@ importers:
         version: 1.1.4
       astro-relative-links:
         specifier: ^0.4.2
-        version: 0.4.2(astro@5.1.1(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1))
+        version: 0.4.2(astro@5.1.6(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1))
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
@@ -123,8 +123,8 @@ packages:
     resolution: {integrity: sha512-GilTHKGCW6HMq7y3BUv9Ac7GMe/MO9gi9GW62GzKtth0SwukCu/qp2wLiGpEujhY+VVhaG9v7kv/5vFzvf4NYw==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=22.0.0}
 
-  '@astrojs/react@4.1.2':
-    resolution: {integrity: sha512-Slw8Bho50w1+rYnSnDl5PDAUikSOEItx5DEJU5OgmarTirBr1audIb2DgC8faAGcGkq5WhuUVsSiq/TmSORlwA==}
+  '@astrojs/react@4.1.4':
+    resolution: {integrity: sha512-PdTgUDysZopxYAS/LNFcrwgLC0gm0fUe7jfPSU5o4V4ZU/hZXShMBY1beLNoQHpbFaRnLi0ot2MS/81NU734WQ==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=22.0.0}
     peerDependencies:
       '@types/react': ^17.0.50 || ^18.0.21 || ^19.0.0
@@ -1152,8 +1152,8 @@ packages:
     peerDependencies:
       astro: '>=3.0.0'
 
-  astro@5.1.1:
-    resolution: {integrity: sha512-prpWC2PRs4P3FKQg6gZaU+VNMqbZi5pDvORGB2nrjfRjkrvF6/l4BqhvkJ6YQ0Ohm5rIMVz8ljgaRI77mLHbwg==}
+  astro@5.1.6:
+    resolution: {integrity: sha512-LpTazCIW6syxFePi65gg2ptqqC2kR+PDRym3V23hEQj5yCf+T0t5v9qtp3fW0/+6G+JvP0EprCfCRTt7h/hexg==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -3367,7 +3367,7 @@ snapshots:
     dependencies:
       prismjs: 1.29.0
 
-  '@astrojs/react@4.1.2(@types/node@22.10.2)(@types/react-dom@19.0.2(@types/react@19.0.1))(@types/react@19.0.1)(jiti@1.21.6)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0)(yaml@2.6.1)':
+  '@astrojs/react@4.1.4(@types/node@22.10.2)(@types/react-dom@19.0.2(@types/react@19.0.1))(@types/react@19.0.1)(jiti@1.21.6)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0)(yaml@2.6.1)':
     dependencies:
       '@types/react': 19.0.1
       '@types/react-dom': 19.0.2(@types/react@19.0.1)
@@ -3390,9 +3390,9 @@ snapshots:
       - tsx
       - yaml
 
-  '@astrojs/tailwind@5.1.4(astro@5.1.1(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1))(tailwindcss@3.4.16)':
+  '@astrojs/tailwind@5.1.4(astro@5.1.6(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1))(tailwindcss@3.4.16)':
     dependencies:
-      astro: 5.1.1(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1)
+      astro: 5.1.6(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1)
       autoprefixer: 10.4.20(postcss@8.4.49)
       postcss: 8.4.49
       postcss-load-config: 4.0.2(postcss@8.4.49)
@@ -4321,12 +4321,12 @@ snapshots:
       - debug
       - supports-color
 
-  astro-relative-links@0.4.2(astro@5.1.1(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1)):
+  astro-relative-links@0.4.2(astro@5.1.6(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1)):
     dependencies:
-      astro: 5.1.1(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1)
+      astro: 5.1.6(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1)
       glob: 10.4.5
 
-  astro@5.1.1(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1):
+  astro@5.1.6(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.28.1)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1):
     dependencies:
       '@astrojs/compiler': 2.10.3
       '@astrojs/internal-helpers': 0.4.2
