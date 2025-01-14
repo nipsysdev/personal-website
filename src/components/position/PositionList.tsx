@@ -53,13 +53,15 @@ export default function PositionList(props: Props) {
     [$i18n],
   );
 
+  // TODO: Implement key event receiver. Use it for Datatable & Details. Pass to parent so TerminalEmulator can catch ESC.
+
   return (
     <>
       {!selectedPosId && (
         <div className="flex flex-col h-full">
           {/* TODO: Extract a page title component */}
           <div className="flex items-end gap-x-5 w-full">
-            <div className="flex basis-5/6 items-center border-y-2 border-darkslategray text-sm">
+            <div className="flex basis-11/12 items-center border-y-2 border-darkslategray text-sm">
               <div className="text-lg font-bold bg-steelblue/60 px-5 py-1">
                 {$i18n.experience.myExperience}
               </div>
