@@ -34,7 +34,7 @@ export const Positions: Position[] = [
       DevTool.Jsoup,
       DevTool.RabbitMq,
     ],
-    period: [new Date(2016, 6), new Date(2017, 10)],
+    period: [new Date(2016, 8), new Date(2017, 10)],
   },
   {
     id: 3,
@@ -64,7 +64,7 @@ export const Positions: Position[] = [
       DevTool.Jsoup,
       DevTool.RabbitMq,
     ],
-    period: [new Date(2017, 10), new Date(2019, 6)],
+    period: [new Date(2017, 10), new Date(2019, 8)],
   },
   {
     id: 4,
@@ -134,6 +134,6 @@ export const Positions: Position[] = [
       DevTool.Vue3,
     ],
     beDevTools: [],
-    period: [new Date(2022, 1)],
+    period: [new Date(2022, 0)],
   },
 ];
