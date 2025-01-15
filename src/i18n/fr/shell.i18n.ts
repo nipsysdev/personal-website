@@ -4,4 +4,6 @@ export default {
   cmdLinePrefix: "visiteur@portfolio",
   unknownCmdErr: "commande non reconnue",
   fullScreenMode: "mode plein écran",
+  autocomplete: "autocomplétion :",
+  noMatch: "aucune correspondance",
 } satisfies I18nDict;

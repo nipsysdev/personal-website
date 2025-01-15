@@ -3,7 +3,7 @@ import { Command } from "../../types/shell.ts";
 
 export default {
   [Command.Whoami]: {
-    description: "Print a brief overview of whoami",
+    description: "Learn more about me",
   },
   [Command.Experience]: {
     description: "Browse the positions I occupied",
