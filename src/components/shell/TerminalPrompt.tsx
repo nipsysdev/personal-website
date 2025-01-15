@@ -45,34 +45,40 @@ export default class TerminalPrompt extends Component<Props, State> {
 
   simulate(input: string) {
     let i = 0;
-    this.setInput("");
 
     const addChar = (cmd: string) => {
       if (!cmd || i >= cmd.length) {
         this.submit();
         return;
       }
-      this.setInput(this.state.inputText + cmd.charAt(i));
-      i++;
+      this.setInput(this.state.inputText + cmd.charAt(i), () => {
+        i++;
 
-      setTimeout(() => {
-        addChar(cmd);
-      }, 50);
+        setTimeout(() => {
+          addChar(cmd);
+        }, 50);
+      });
     };
-    addChar(input);
-    this.state.inputRef.current?.focus();
+
+    this.setInput("", () => {
+      addChar(input);
+      this.state.inputRef.current?.focus();
+    });
   }
 
   scrollIntoView() {
     this.state.inputRef.current?.scrollIntoView({ behavior: "smooth" });
   }
 
-  setInput(input: string): void {
-    this.setState((previousState) => ({
-      ...previousState,
-      inputText: input,
-      autocomplete: null,
-    }));
+  setInput(input: string, callback?: () => void): void {
+    this.setState(
+      (previousState) => ({
+        ...previousState,
+        inputText: input,
+        autocomplete: null,
+      }),
+      callback,
+    );
   }
 
   private setHistoryIdx(idx: number): void {
@@ -108,9 +114,10 @@ export default class TerminalPrompt extends Component<Props, State> {
       this.state.historyIdx === -1
         ? this.props.history.length - 1
         : this.state.historyIdx - 1;
-    this.setInput(this.getPastInputStr(this.props.history[idx]));
-    this.updateCursorPosition();
-    this.setHistoryIdx(idx);
+    this.setInput(this.getPastInputStr(this.props.history[idx]), () => {
+      this.updateCursorPosition();
+      this.setHistoryIdx(idx);
+    });
   }
 
   private useNextEntry() {
@@ -123,9 +130,10 @@ export default class TerminalPrompt extends Component<Props, State> {
     }
 
     idx++;
-    this.setInput(this.getPastInputStr(this.props.history[idx]));
-    this.updateCursorPosition();
-    this.setHistoryIdx(idx);
+    this.setInput(this.getPastInputStr(this.props.history[idx]), () => {
+      this.updateCursorPosition();
+      this.setHistoryIdx(idx);
+    });
   }
 
   private getPastInputStr(entry: CommandEntry): string {
