@@ -7,6 +7,8 @@ import { Companies } from "../../constants/companies.ts";
 import { PositionRole } from "../../types/work.ts";
 import { ViewRoute } from "../../types/viewRoute.ts";
 import { RouteUtils } from "../../utils/routeUtils.ts";
+import useKeyHandler from "../../hooks/useKeyHandler.ts";
+import { KeyListener } from "../common/KeyListener.tsx";
 
 interface Props {
   positionId: number;
@@ -16,6 +18,7 @@ interface Props {
 export default function PositionDetails(props: Props) {
   const $lang = useStore(CurrentLang);
   const $i18n = useStore(I18n);
+
   const position = useMemo(
     () => Positions.find((pos) => pos.id === props.positionId),
     [props.positionId],
@@ -28,6 +31,18 @@ export default function PositionDetails(props: Props) {
     () => (position ? Companies[position.company] : null),
     [],
   );
+
+  useKeyHandler((event) => {
+    if (event.key === "Backspace") {
+      if (props.backOnClick) {
+        props.backOnClick();
+      } else {
+        window.location.replace(
+          RouteUtils.getPathForLang(ViewRoute.Experience, $lang),
+        );
+      }
+    }
+  });
 
   const backEl = () => {
     const classNames = "font-bold text-darkgoldenrod cursor-pointer text-base";
@@ -226,6 +241,7 @@ export default function PositionDetails(props: Props) {
             </div>
           )}
         </div>
+        <KeyListener />
       </div>
     )
   );

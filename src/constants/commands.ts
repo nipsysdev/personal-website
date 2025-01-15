@@ -11,6 +11,7 @@ function enumToArg(o: { [s: string]: string } | ArrayLike<string>): string[] {
   });
 }
 
+// TODO: Add a command to display IPFS hash (retrieve from ENS domain)
 export default [
   {
     name: Command.Whoami,

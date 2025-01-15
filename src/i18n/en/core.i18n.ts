@@ -11,5 +11,5 @@ export default {
   na: "N/A",
   back: "back",
   backspace: "BACKSPACE",
-  escape: "ESC",
+  ctrlc: "CTRL+C",
 } satisfies I18nDict;

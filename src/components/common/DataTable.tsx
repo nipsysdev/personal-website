@@ -1,3 +1,4 @@
+import type { KeyboardEvent } from "react";
 import {
   type DetailedHTMLProps,
   type HTMLAttributes,
@@ -5,6 +6,8 @@ import {
   useState,
 } from "react";
 import type { DisplayableData } from "../../types/common.ts";
+import useKeyHandler from "../../hooks/useKeyHandler.ts";
+import { KeyListener } from "./KeyListener.tsx";
 
 export interface DataTableColumn {
   field: string;
@@ -25,6 +28,30 @@ interface Props {
 
 export default function DataTable(props: Props) {
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  useKeyHandler((event: KeyboardEvent) => {
+    switch (event.key) {
+      case "ArrowUp":
+        setSelectedIndex(
+          selectedIndex <= 0 ? props.entries.length - 1 : selectedIndex - 1,
+        );
+        break;
+      case "ArrowDown":
+        setSelectedIndex(
+          selectedIndex >= props.entries.length - 1 ? 0 : selectedIndex + 1,
+        );
+        break;
+      case "Enter":
+        if (props.btnClick) {
+          props.btnClick(props.entries[selectedIndex]);
+        } else {
+          window.location.replace(
+            `${props.anchorPath}/${props.entries[selectedIndex][props.refField]}`,
+          );
+        }
+        break;
+    }
+  });
 
   const rowEl = (
     entry: Record<string, DisplayableData>,
@@ -134,6 +161,7 @@ export default function DataTable(props: Props) {
           </div>
         </div>
       </div>
+      <KeyListener />
 
       <style lang="scss" scoped>
         {`

@@ -57,7 +57,14 @@ export default function PositionList(props: Props) {
 
   return (
     <>
-      {!selectedPosId && (
+      {selectedPosId ? (
+        <PositionDetails
+          positionId={selectedPosId}
+          backOnClick={
+            props.isTerminal ? () => setSelectedPosId(null) : undefined
+          }
+        />
+      ) : (
         <div className="flex flex-col h-full">
           {/* TODO: Extract a page title component */}
           <div className="flex items-end gap-x-5 w-full">
@@ -89,6 +96,8 @@ export default function PositionList(props: Props) {
                 </div>
               </div>
             </div>
+
+            <div>{/* TODO: CV link here */}</div>
           </div>
 
           <div className="flex-auto overflow-hidden">
@@ -136,15 +145,6 @@ export default function PositionList(props: Props) {
             )}
           </div>
         </div>
-      )}
-
-      {selectedPosId && (
-        <PositionDetails
-          positionId={selectedPosId}
-          backOnClick={
-            props.isTerminal ? () => setSelectedPosId(null) : undefined
-          }
-        />
       )}
     </>
   );

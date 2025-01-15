@@ -9,11 +9,14 @@ import type { I18nContent } from "../../i18n/i18nTypes.ts";
 import { ShellSubmission } from "../../stores/shellStore.ts";
 import { GetEntryInput } from "../../utils/shellUtils.ts";
 import Commands from "../../constants/commands.ts";
+import { LastKeyDown } from "../../stores/coreStore.ts";
+import { IsNewKeyEvent } from "../../utils/keyboardUtils.ts";
 
 interface Props {
   i18nContent: I18nContent;
   entry?: CommandEntry;
   history?: CommandEntry[];
+  lastKeyDown?: KeyboardEvent | null;
 }
 
 interface State {
@@ -24,6 +27,7 @@ interface State {
   autocomplete: string[] | null;
 }
 
+// Todo: Try wrapping this component in a class to use the useKeyHandler hook
 export default class TerminalPrompt extends Component<Props, State> {
   state: State = {
     inputText: "",
@@ -36,6 +40,15 @@ export default class TerminalPrompt extends Component<Props, State> {
   componentDidMount() {
     if (this.props.entry) {
       this.setInput(GetEntryInput(this.props.entry));
+    }
+  }
+
+  componentDidUpdate(prevProps: Readonly<Props>) {
+    if (
+      this.props.lastKeyDown &&
+      IsNewKeyEvent(prevProps.lastKeyDown, this.props.lastKeyDown)
+    ) {
+      this.keyDownHandler(this.props.lastKeyDown);
     }
   }
 
@@ -171,13 +184,15 @@ export default class TerminalPrompt extends Component<Props, State> {
     });
   }
 
-  private keyDownHandler(event: KeyboardEvent<HTMLInputElement>): void {
+  private keyDownHandler(event: KeyboardEvent): void {
+    if (event.ctrlKey && event.key === "c") {
+      return this.resetEntry();
+    }
+
     switch (event.key) {
       case "Enter":
+        LastKeyDown.set(null);
         this.submit();
-        break;
-      case "Escape":
-        this.resetEntry();
         break;
       case "ArrowUp":
         this.usePreviousEntry();
@@ -207,7 +222,7 @@ export default class TerminalPrompt extends Component<Props, State> {
           spellCheck="false"
           readOnly={!!this.props.entry}
           onChange={(e) => this.setInput(e.target.value)}
-          onKeyDown={(e) => this.keyDownHandler(e)}
+          onKeyDown={LastKeyDown.set}
           onBeforeInput={() => this.setHistoryIdx(-1)}
         />
       </div>

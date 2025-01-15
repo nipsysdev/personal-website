@@ -7,12 +7,13 @@ import {
   ShellSimCmd,
   ShellSubmission,
 } from "../../stores/shellStore.ts";
-import { I18n } from "../../stores/coreStore.ts";
+import { I18n, LastKeyDown } from "../../stores/coreStore.ts";
 import { createRef, type KeyboardEvent, useEffect, useState } from "react";
 import TerminalPrompt from "./TerminalPrompt.tsx";
 import { Command, type CommandEntry } from "../../types/shell.ts";
 import { ParseEntry } from "../../utils/shellUtils.ts";
 import UnknownCmdOutput from "../outputs/UnknownCmdOutput.tsx";
+import useKeyHandler from "../../hooks/useKeyHandler.ts";
 
 export default function TerminalEmulator() {
   const $i18n = useStore(I18n);
@@ -21,6 +22,8 @@ export default function TerminalEmulator() {
   const $simCmd = useStore(ShellSimCmd);
   const $history = useStore(ShellHistory);
   const $hasIntroduced = useStore(ShellHasIntroduced);
+  const $lastKeyDown = useStore(LastKeyDown);
+
   const [fullscreenEntry, setFullscreenEntry] = useState<CommandEntry | null>(
     null,
   );
@@ -72,15 +75,14 @@ export default function TerminalEmulator() {
     ShellInput.set("");
   }, [$input]);
 
+  useKeyHandler((event: KeyboardEvent) => {
+    if (event.ctrlKey && event.key === "c") {
+      return exitFullscreen();
+    }
+  });
+
   const exitFullscreen = () => {
     setFullscreenEntry(null);
-  };
-
-  const keyDownHandler = (e: KeyboardEvent<HTMLDivElement>) => {
-    switch (e.key) {
-      case "Escape":
-        exitFullscreen();
-    }
   };
 
   const standardView = (
@@ -88,7 +90,7 @@ export default function TerminalEmulator() {
       role="button"
       tabIndex={0}
       className="size-full flex flex-col cursor-default"
-      onKeyDown={keyDownHandler}
+      onKeyDown={() => {}}
       onClick={() => mainPrompt.current?.focus()}
     >
       {$history.map((entry) => (
@@ -101,7 +103,12 @@ export default function TerminalEmulator() {
           )}
         </div>
       ))}
-      <TerminalPrompt ref={mainPrompt} i18nContent={$i18n} history={$history} />
+      <TerminalPrompt
+        ref={mainPrompt}
+        i18nContent={$i18n}
+        history={$history}
+        lastKeyDown={$lastKeyDown}
+      />
     </div>
   );
 
@@ -121,7 +128,7 @@ export default function TerminalEmulator() {
             >
               [{$i18n.core.exit}]
             </button>
-            &nbsp;{$i18n.core.or}&nbsp;&lt;{$i18n.core.escape}&gt;
+            &nbsp;{$i18n.core.or}&nbsp;&lt;{$i18n.core.ctrlc}&gt;
           </div>
         </div>
       </div>

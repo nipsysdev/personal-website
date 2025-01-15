@@ -1,5 +1,6 @@
 import type { DisplayableData } from "../../types/common.ts";
 import { type JSX, useMemo, useState } from "react";
+import { KeyListener } from "./KeyListener.tsx";
 
 export interface CardListGroup {
   field: string;
@@ -63,6 +64,7 @@ export default function CardList(props: Props) {
           </div>
         </div>
       ))}
+      <KeyListener />
     </div>
   );
 }
