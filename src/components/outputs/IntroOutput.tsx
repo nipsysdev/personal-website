@@ -6,6 +6,7 @@ import CmdLink from "../shell/CmdLink.tsx";
 
 export default class IntroOutput extends Component<CommandOutputProps> {
   readonly name = "Xavier Saliniere";
+  readonly nickname = "nipsysdev";
 
   readonly state = {
     figletText: "",
@@ -14,7 +15,7 @@ export default class IntroOutput extends Component<CommandOutputProps> {
   componentDidMount() {
     figlet.parseFont("Standard", standard);
     figlet.text(
-      this.name,
+      this.nickname,
       {
         font: "Standard",
       },
@@ -25,7 +26,7 @@ export default class IntroOutput extends Component<CommandOutputProps> {
   render() {
     return (
       <>
-        <div className="hidden md:block font-mono text-xs leading-none whitespace-break-spaces">
+        <div className="hidden md:block font-mono text-xs leading-none whitespace-break-spaces mb-1">
           {this.state.figletText}
         </div>
 
