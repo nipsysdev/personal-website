@@ -1,4 +1,4 @@
-name: Web3 Deploy
+name: Web3 Build
 
 on:
   push:
@@ -31,21 +31,3 @@ jobs:
         with:
           name: "web3-build"
           path: ./dist/
-    outputs:
-      artifactId: ${{ steps.artifactUpload.outputs.artifact-id }}
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Request artifact pinning
-        id: pinRequest
-        uses: fjogeleit/http-request-action@v1
-        with:
-          url: "https://ipfs.nipsys.dev/pin?artifactId=${{ needs.build.outputs.artifactId }}"
-          method: 'GET'
-          timeout: '60000'
-          bearerToken: ${{ secrets.PIN_BEARER }}
-
-      - name: Output CID
-        run: echo ${{ fromJson(steps.pinRequest.outputs.response).cid }}
