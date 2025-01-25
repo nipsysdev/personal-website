@@ -29,6 +29,7 @@ jobs:
         id: artifactUpload
         uses: actions/upload-artifact@v4
         with:
+          name: "web3-build"
           path: ./dist/
     outputs:
       artifactId: ${{ steps.artifactUpload.outputs.artifact-id }}
