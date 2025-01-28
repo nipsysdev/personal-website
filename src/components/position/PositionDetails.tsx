@@ -37,8 +37,9 @@ export default function PositionDetails(props: Props) {
       if (props.backOnClick) {
         props.backOnClick();
       } else {
-        window.location.replace(
-          RouteUtils.getPathForLang(ViewRoute.Experience, $lang),
+        window.location.href = RouteUtils.getPathForLang(
+          ViewRoute.Experience,
+          $lang,
         );
       }
     }
