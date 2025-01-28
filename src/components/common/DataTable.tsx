@@ -72,7 +72,7 @@ export default function DataTable(props: Props) {
         <a
           key={key}
           {...attr}
-          href={`${props.anchorPath}/${entry[props.refField]}`}
+          href={`${props.anchorPath}/${entry[props.refField]}/`}
         >
           {children}
         </a>
