@@ -211,7 +211,7 @@ export default class TerminalPrompt extends Component<Props, State> {
       <div className="flex w-full gap-x-2">
         <div className="font-bold">
           <span className="text-steelblue">
-            netscape@{window.location.host.split(":")[0]}
+            cypherpunk@{window.location.host.split(":")[0]}
           </span>
           :<span className="text-steelblue">~</span>$
         </div>
