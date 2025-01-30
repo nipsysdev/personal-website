@@ -7,11 +7,15 @@ import icon from "astro-icon";
 import relativeLinks from "astro-relative-links";
 
 export default defineConfig({
-  prefetch: true,
+  site: "https://xaviers.sh",
+  trailingSlash: "always",
   integrations: [react(), tailwind(), icon(), relativeLinks()],
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "load",
+  },
   i18n: {
     locales: ["en", "fr"],
     defaultLocale: "en",
   },
-  site: "https://xaviers.sh",
 });
