@@ -2,7 +2,6 @@
 import "../styles/global.scss";
 import { Icon } from "astro-icon/components";
 import { AstroFont } from "astro-font";
-import { ClientRouter } from "astro:transitions";
 import { Inconsolata } from "../constants/fonts";
 import { RouteUtils } from "../utils/routeUtils";
 import { I18n, CurrentLang } from "../stores/coreStore";
@@ -37,7 +36,6 @@ const { core: coreContent } = I18n.get();
       )
     }
     <AstroFont config={[Inconsolata]} />
-    <ClientRouter />
   </head>
   <body class="w-dvw h-dvh flex flex-col justify-center relative">
     <div
