@@ -18,7 +18,8 @@ export const RouteUtils = {
 
   getPathForLang: (pathname: string, lang: Lang): string => {
     const route = RouteUtils.removeLangFromPath(pathname);
-    return lang === Lang.En ? route : `/${lang}${route}`;
+    const path = lang === Lang.En ? route : `/${lang}${route}`;
+    return path.endsWith("/") ? path : `${path}/`;
   },
 
   isView: (url: URL, route: ViewRoute): boolean => {
