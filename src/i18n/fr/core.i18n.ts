@@ -12,4 +12,6 @@ export default {
   back: "retour",
   backspace: "BACKSPACE",
   ctrlc: "CTRL+C",
+  web2Loading: "Chargement à partir d'un serveur central",
+  web3Loading: "Chargement à partir du réseau Swarm",
 } satisfies I18nDict;

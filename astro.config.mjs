@@ -7,7 +7,6 @@ import icon from "astro-icon";
 import relativeLinks from "astro-relative-links";
 
 export default defineConfig({
-  site: "https://xaviers.sh",
   trailingSlash: "always",
   integrations: [react(), tailwind(), icon(), relativeLinks()],
   prefetch: {

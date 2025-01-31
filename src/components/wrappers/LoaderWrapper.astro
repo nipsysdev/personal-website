@@ -1,0 +1,61 @@
+---
+import { I18n, IsWeb3 } from "../../stores/coreStore";
+import { Icon } from "astro-icon/components";
+const isWeb3 = IsWeb3.get();
+const { core } = I18n.get();
+
+const spinner = {
+  interval: 80,
+  frames: [
+    "▱▱▱▱▱▱▱",
+    "▱▱▱▱▱▱▰",
+    "▱▱▱▱▱▰▱",
+    "▱▱▱▱▰▱▱",
+    "▱▱▱▰▱▱▱",
+    "▱▱▰▱▱▱▱",
+    "▱▰▱▱▱▱▱",
+    "▰▱▱▱▱▱▱",
+    "▱▱▱▱▱▱▱",
+    "▱▱▱▱▱▱▱",
+  ],
+};
+const destIcon = "simple-icons:astro";
+const sourceIcon = isWeb3 ? "swarm" : "mdi:server";
+const loadingText = isWeb3 ? core.web3Loading : core.web2Loading;
+---
+
+<div class="size-full flex justify-center items-center relative">
+  <div
+    class="absolute z-0 animate-pulse flex flex-col items-center gap-y-1 text-2xl h-2/3"
+  >
+    <div class="flex gap-x-2 items-center">
+      <Icon name={destIcon} />
+      <span id="frame">{spinner.frames[0]}</span>
+      <Icon name={sourceIcon} />
+    </div>
+    <div class="text-sm">{loadingText}</div>
+  </div>
+
+  <slot />
+</div>
+
+<script is:inline define:vars={{ spinner }}>
+  let spinnerInterval = null;
+  let frameIdx = 0;
+
+  window.addEventListener("load", () => {
+    const frameHolder = document.getElementById("frame");
+    if (frameHolder) {
+      spinnerInterval = window.setInterval(() => {
+        frameIdx = frameIdx + 1 === spinner.frames.length ? 0 : frameIdx + 1;
+        frameHolder.textContent = spinner.frames[frameIdx];
+      }, spinner.interval);
+    }
+  });
+
+  window.addEventListener("beforeunload", () => {
+    if (spinnerInterval) {
+      clearInterval(spinnerInterval);
+    }
+  });
+</script>

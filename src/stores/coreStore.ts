@@ -6,3 +6,5 @@ import type { KeyboardEvent } from "react";
 export const CurrentLang = atom(Lang.En);
 export const I18n = computed(CurrentLang, (lang) => I18nMap[lang]);
 export const LastKeyDown = atom<KeyboardEvent | null>(null);
+export const AstroEnv = atom<Record<string, unknown>>({});
+export const IsWeb3 = computed(AstroEnv, (env) => env.MODE === "web3");

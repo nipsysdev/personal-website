@@ -14,6 +14,7 @@ import { Command, type CommandEntry } from "../../types/shell.ts";
 import { ParseEntry } from "../../utils/shellUtils.ts";
 import UnknownCmdOutput from "../outputs/UnknownCmdOutput.tsx";
 import useKeyHandler from "../../hooks/useKeyHandler.ts";
+import useIsPrerender from "../../hooks/useIsPrerender.ts";
 
 export default function TerminalEmulator() {
   const $i18n = useStore(I18n);
@@ -23,6 +24,7 @@ export default function TerminalEmulator() {
   const $history = useStore(ShellHistory);
   const $hasIntroduced = useStore(ShellHasIntroduced);
   const $lastKeyDown = useStore(LastKeyDown);
+  const isPrerender = useIsPrerender();
 
   const [fullscreenEntry, setFullscreenEntry] = useState<CommandEntry | null>(
     null,
@@ -32,11 +34,11 @@ export default function TerminalEmulator() {
   useEffect(() => {
     mainPrompt.current?.focus();
 
-    if (!$hasIntroduced && mainPrompt.current) {
+    if (!isPrerender && !$hasIntroduced && mainPrompt.current) {
       ShellHasIntroduced.set(true);
       mainPrompt.current?.simulate(Command.Intro);
     }
-  }, [mainPrompt]);
+  }, [mainPrompt, isPrerender]);
 
   useEffect(() => {
     if (!$submission) return;

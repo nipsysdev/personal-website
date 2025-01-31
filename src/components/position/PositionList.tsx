@@ -4,7 +4,7 @@ import { RiGridFill, RiTableFill } from "react-icons/ri";
 import DataTable from "../common/DataTable.tsx";
 import PositionColumns from "../../constants/table-data/positionColumns.ts";
 import { Positions } from "../../constants/positions.ts";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import CardList, { type CardListGroup } from "../common/CardList.tsx";
 import type { Position } from "../../types/work.ts";
 import { PositionType } from "../../types/work.ts";
@@ -13,6 +13,7 @@ import PositionCard from "./PositionCard.tsx";
 import { ViewRoute } from "../../types/viewRoute.ts";
 import PositionDetails from "./PositionDetails.tsx";
 import { RouteUtils } from "../../utils/routeUtils.ts";
+import useIsPrerender from "../../hooks/useIsPrerender.ts";
 
 interface Props {
   isTerminal?: boolean;
@@ -22,13 +23,9 @@ export default function PositionList(props: Props) {
   const $lang = useStore(CurrentLang);
   const $i18n = useStore(I18n);
   const [isGridMode, setIsGridMode] = useState(false);
-  const [isPrerender, setIsPrerender] = useState(true);
+  const isPrerender = useIsPrerender();
   const [selectedPosId, setSelectedPosId] = useState<number | null>(null);
   const refField = "id";
-
-  useEffect(() => {
-    setIsPrerender(false);
-  }, []);
 
   const positions = useMemo(() => {
     return Positions.sort((a, b) => (a.id < b.id ? 1 : -1));

@@ -1,11 +1,12 @@
 ---
 import PageLayout from "../../layouts/PageLayout.astro";
 import PositionList from "../../components/position/PositionList";
-import I18nWrapper from "../../i18n/I18nWrapper";
+import InitWrapper from "../../components/wrappers/InitWrapper";
+import { IsWeb3 } from "../../stores/coreStore";
 ---
 
 <PageLayout>
-  <I18nWrapper lang={Astro.currentLocale} client:load>
+  <InitWrapper env={import.meta.env} lang={Astro.currentLocale} client:load>
     <PositionList client:load />
-  </I18nWrapper>
+  </InitWrapper>
 </PageLayout>

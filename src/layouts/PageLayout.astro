@@ -3,17 +3,19 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { ViewRoute } from "../types/viewRoute";
 import { RouteUtils } from "../utils/routeUtils";
-import { I18n, CurrentLang } from "../stores/coreStore";
+import { I18n, CurrentLang, IsWeb3, AstroEnv } from "../stores/coreStore";
 import { Lang } from "../constants/lang";
 import "dayjs/locale/en";
 import "dayjs/locale/fr";
 import dayjs from "dayjs";
+import LoaderWrapper from "../components/wrappers/LoaderWrapper.astro";
 
+AstroEnv.set(import.meta.env);
 const currentLang = (Astro.currentLocale as Lang | undefined) ?? Lang.En;
 CurrentLang.set(currentLang);
 dayjs.locale(currentLang);
 const { core, enums } = I18n.get();
-const isWeb3 = import.meta.env.IS_WEB3 === "true";
+const isWeb3 = IsWeb3.get();
 ---
 
 <BaseLayout>
@@ -45,7 +47,7 @@ const isWeb3 = import.meta.env.IS_WEB3 === "true";
       class="bg-darkerslategray flex-auto flex flex-col rounded-tr-md rounded-b-md overflow-hidden relative p-5"
     >
       <div
-        class="absolute top-2 right-2 z-10 rounded-full bg-darkerslategray overflow-hidden"
+        class="absolute top-2 right-2 z-50 rounded-full bg-darkerslategray overflow-hidden"
       >
         {
           isWeb3 ? (
@@ -69,7 +71,10 @@ const isWeb3 = import.meta.env.IS_WEB3 === "true";
           )
         }
       </div>
-      <slot />
+
+      <LoaderWrapper>
+        <slot />
+      </LoaderWrapper>
     </div>
   </div>
 

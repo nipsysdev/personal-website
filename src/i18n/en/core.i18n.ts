@@ -12,4 +12,6 @@ export default {
   back: "back",
   backspace: "BACKSPACE",
   ctrlc: "CTRL+C",
+  web2Loading: "Loading from a centralized server",
+  web3Loading: "Loading from the Swarm network",
 } satisfies I18nDict;

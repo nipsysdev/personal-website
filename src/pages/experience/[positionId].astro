@@ -2,7 +2,8 @@
 import PageLayout from "../../layouts/PageLayout.astro";
 import { Positions } from "../../constants/positions";
 import PositionDetails from "../../components/position/PositionDetails";
-import I18nWrapper from "../../i18n/I18nWrapper";
+import InitWrapper from "../../components/wrappers/InitWrapper";
+import { IsWeb3 } from "../../stores/coreStore";
 
 export function getStaticPaths() {
   return Positions.map((position) => ({
@@ -14,7 +15,7 @@ const { positionId } = Astro.params;
 ---
 
 <PageLayout>
-  <I18nWrapper lang={Astro.currentLocale} client:load>
+  <InitWrapper env={import.meta.env} lang={Astro.currentLocale} client:load>
     <PositionDetails positionId={Number(positionId)} client:load />
-  </I18nWrapper>
+  </InitWrapper>
 </PageLayout>

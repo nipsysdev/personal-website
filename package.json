@@ -21,6 +21,7 @@
   "dependencies": {
     "@astrojs/react": "^4.1.4",
     "@astrojs/tailwind": "^5.1.4",
+    "@iconify-json/simple-icons": "^1.2.22",
     "@nanostores/react": "^0.8.4",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
