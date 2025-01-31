@@ -43,19 +43,25 @@ const loadingText = isWeb3 ? core.web3Loading : core.web2Loading;
   let spinnerInterval = null;
   let frameIdx = 0;
 
-  window.addEventListener("load", () => {
+  function initAnim() {
     const frameHolder = document.getElementById("frame");
-    if (frameHolder) {
+    if (frameHolder && !spinnerInterval) {
       spinnerInterval = window.setInterval(() => {
         frameIdx = frameIdx + 1 === spinner.frames.length ? 0 : frameIdx + 1;
         frameHolder.textContent = spinner.frames[frameIdx];
       }, spinner.interval);
     }
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    initAnim();
   });
 
-  window.addEventListener("beforeunload", () => {
+  window.addEventListener("unload", () => {
     if (spinnerInterval) {
       clearInterval(spinnerInterval);
     }
   });
+
+  initAnim();
 </script>
