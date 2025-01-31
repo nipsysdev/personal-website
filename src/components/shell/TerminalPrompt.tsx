@@ -239,7 +239,9 @@ export default class TerminalPrompt extends Component<Props, State> {
       <style lang="scss" scoped>
         {`
           input {
-            all: unset;
+            &, &:focus {
+              all: unset;
+            }
             flex: 1 1 auto;
             width: inherit;
             opacity: 0.8;
