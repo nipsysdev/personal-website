@@ -4,10 +4,10 @@ import {
   CompanySector,
   CompanySize,
 } from "../types/work.ts";
-import BellLogo from "../components/svg/BellLogo.tsx";
-import ChainifyLogo from "../components/svg/ChainifyLogo.tsx";
-import RenaultDigitalLogo from "../components/svg/RenaultDigitalLogo.tsx";
-import YanportLogo from "../components/svg/YanportLogo.tsx";
+import BellLogo from "../components/logos/BellLogo.tsx";
+import ChainifyLogo from "../components/logos/ChainifyLogo.tsx";
+import RenaultDigitalLogo from "../components/logos/RenaultDigitalLogo.tsx";
+import YanportLogo from "../components/logos/YanportLogo.tsx";
 
 export const Companies: Record<Company, CompanyInfo> = {
   Yanport: {
