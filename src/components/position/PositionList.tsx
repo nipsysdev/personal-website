@@ -1,5 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { CurrentLang, I18n } from "../../stores/coreStore.ts";
+import { CurrentLang, I18n, IsTerminal } from "../../stores/coreStore.ts";
 import { RiGridFill, RiTableFill } from "react-icons/ri";
 import DataTable from "../common/DataTable.tsx";
 import PositionColumns from "../../constants/table-data/positionColumns.ts";
@@ -17,13 +17,11 @@ import useIsPrerender from "../../hooks/useIsPrerender.ts";
 import { KeyListener } from "../common/KeyListener.tsx";
 import useKeyHandler from "../../hooks/useKeyHandler.ts";
 
-interface Props {
-  isTerminal?: boolean;
-}
-
-export default function PositionList(props: Props) {
+export default function PositionList() {
   const $lang = useStore(CurrentLang);
   const $i18n = useStore(I18n);
+  const $isTerm = useStore(IsTerminal);
+
   const [isGridMode, setIsGridMode] = useState(false);
   const isPrerender = useIsPrerender();
   const [selectedPosId, setSelectedPosId] = useState<number | null>(null);
@@ -64,9 +62,7 @@ export default function PositionList(props: Props) {
       {selectedPosId ? (
         <PositionDetails
           positionId={selectedPosId}
-          backOnClick={
-            props.isTerminal ? () => setSelectedPosId(null) : undefined
-          }
+          backOnClick={$isTerm ? () => setSelectedPosId(null) : undefined}
         />
       ) : (
         <div className="flex flex-col h-full">
@@ -125,12 +121,12 @@ export default function PositionList(props: Props) {
                     columns={PositionColumns($i18n)}
                     entries={positions}
                     anchorPath={
-                      props.isTerminal
+                      $isTerm
                         ? undefined
                         : RouteUtils.getPathForLang(ViewRoute.Experience, $lang)
                     }
                     btnClick={
-                      props.isTerminal
+                      $isTerm
                         ? (entry: Record<string, DisplayableData>) =>
                             setSelectedPosId((entry as Position).id)
                         : undefined
@@ -148,12 +144,12 @@ export default function PositionList(props: Props) {
                 entries={positions}
                 card={PositionCard}
                 anchorPath={
-                  props.isTerminal
+                  $isTerm
                     ? undefined
                     : RouteUtils.getPathForLang(ViewRoute.Experience, $lang)
                 }
                 btnClick={
-                  props.isTerminal
+                  $isTerm
                     ? (entry: Record<string, DisplayableData>) =>
                         setSelectedPosId((entry as Position).id)
                     : undefined

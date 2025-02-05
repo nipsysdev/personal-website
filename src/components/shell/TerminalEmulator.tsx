@@ -7,7 +7,7 @@ import {
   ShellSimCmd,
   ShellSubmission,
 } from "../../stores/shellStore.ts";
-import { I18n, LastKeyDown } from "../../stores/coreStore.ts";
+import { I18n, IsTerminal, LastKeyDown } from "../../stores/coreStore.ts";
 import { createRef, type KeyboardEvent, useEffect, useState } from "react";
 import TerminalPrompt from "./TerminalPrompt.tsx";
 import { Command, type CommandEntry } from "../../types/shell.ts";
@@ -30,6 +30,8 @@ export default function TerminalEmulator() {
     null,
   );
   const mainPrompt = createRef<TerminalPrompt>();
+
+  useEffect(() => IsTerminal.set(true), []);
 
   useEffect(() => {
     mainPrompt.current?.focus();

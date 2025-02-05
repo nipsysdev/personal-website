@@ -4,6 +4,6 @@ import PositionList from "../position/PositionList.tsx";
 
 export default class ExperienceOutput extends Component<CommandOutputProps> {
   render() {
-    return <PositionList isTerminal />;
+    return <PositionList />;
   }
 }
