@@ -51,7 +51,7 @@ const isWeb3 = IsWeb3.get();
       >
         <div
           id="web2_3-indicator"
-          class={`${currentLang === Lang.En ? "w-48" : "w-72"} ${isWeb3 ? "border-darkgoldenrod text-darkgoldenrod" : ""}`}
+          class={`${currentLang === Lang.En ? (isWeb3 ? "w-40" : "w-48") : isWeb3 ? "w-52" : "w-72"} ${isWeb3 ? "border-darkgoldenrod text-darkgoldenrod" : ""}`}
         >
           {
             isWeb3 ? (
