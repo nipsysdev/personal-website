@@ -49,27 +49,26 @@ const isWeb3 = IsWeb3.get();
       <div
         class="absolute top-2 right-2 z-50 rounded-full bg-darkerslategray overflow-hidden"
       >
-        {
-          isWeb3 ? (
-            <div
-              class={`web2_3-indicator ${currentLang === Lang.En ? "w-40" : "w-52"} border-darkgoldenrod text-darkgoldenrod`}
-            >
-              {core.web3}
-            </div>
-          ) : (
-            <div
-              class={`web2_3-indicator ${currentLang === Lang.En ? "w-48" : "w-72"}`}
-            >
-              {core.web2}
-              <a
-                href={`https://nipsys.eth.limo${RouteUtils.getUrlForLang(Astro.url, currentLang)}`}
-                class="text-darkgoldenrod cursor-pointer"
-              >
-                {core.goWeb3}
-              </a>
-            </div>
-          )
-        }
+        <div
+          id="web2_3-indicator"
+          class={`${currentLang === Lang.En ? "w-48" : "w-72"} ${isWeb3 ? "border-darkgoldenrod text-darkgoldenrod" : ""}`}
+        >
+          {
+            isWeb3 ? (
+              core.web3
+            ) : (
+              <>
+                {core.web2}
+                <a
+                  href={`https://nipsys.eth.limo${RouteUtils.getUrlForLang(Astro.url, currentLang)}`}
+                  class="text-darkgoldenrod cursor-pointer"
+                >
+                  {core.goWeb3}
+                </a>
+              </>
+            )
+          }
+        </div>
       </div>
 
       <LoaderWrapper>
@@ -78,11 +77,28 @@ const isWeb3 = IsWeb3.get();
     </div>
   </div>
 
+  <script>
+    const prevHost = document.referrer
+      ? new URL(document.referrer).hostname
+      : "";
+    const currHost = window.location.hostname;
+
+    if (prevHost !== currHost) {
+      const indicator = document.getElementById("web2_3-indicator");
+      setTimeout(() => {
+        indicator?.classList.add("active");
+        setTimeout(() => {
+          indicator?.classList.remove("active");
+        }, 3000);
+      }, 1000);
+    }
+  </script>
+
   <style lang="scss">
-    .web2_3-indicator {
+    #web2_3-indicator {
       @apply h-5 border border-solid rounded-full text-xs transition-all text-center cursor-default leading-normal;
 
-      &:not(:hover) {
+      &:not(:hover):not(.active) {
         @apply w-12 opacity-80;
       }
     }
