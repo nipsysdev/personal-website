@@ -46,7 +46,7 @@ export default function DataTable(props: Props) {
           props.btnClick(props.entries[selectedIndex]);
         } else {
           window.location.replace(
-            `${props.anchorPath}${props.entries[selectedIndex][props.refField]}`,
+            `${props.anchorPath}${props.entries[selectedIndex][props.refField]}/`,
           );
         }
         break;

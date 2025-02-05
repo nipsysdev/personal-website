@@ -50,8 +50,6 @@ export default function PositionList(props: Props) {
     [$i18n],
   );
 
-  // TODO: Implement key event receiver. Use it for Datatable & Details. Pass to parent so TerminalEmulator can catch ESC.
-
   return (
     <>
       {selectedPosId ? (
