@@ -1,7 +1,7 @@
 import type { CardProps } from "../common/CardList.tsx";
 import { useStore } from "@nanostores/react";
 import { I18n } from "../../stores/coreStore.ts";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import type { Position } from "../../types/work.ts";
 import {
   FormatDevTools,
@@ -11,11 +11,19 @@ import {
 export default function PositionCard(props: CardProps) {
   const $i18n = useStore(I18n);
   const entry = useMemo(() => props.entry as Position, [props.entry]);
+  const cardRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (props.selected) {
+      cardRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [props.selected]);
 
   return (
     <div
       className={`border ${props.selected ? "border-steelblue" : "border-darkslategray"} overflow-hidden text-sm cursor-pointer`}
       onMouseEnter={props.onMouseEnter}
+      ref={cardRef}
     >
       <div
         className={`flex bg-darkslategray px-2 pt-1 ${props.selected ? "bg-steelblue" : "text-steelblue"}`}

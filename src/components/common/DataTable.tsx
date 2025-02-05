@@ -7,7 +7,6 @@ import {
 } from "react";
 import type { DisplayableData } from "../../types/common.ts";
 import useKeyHandler from "../../hooks/useKeyHandler.ts";
-import { KeyListener } from "./KeyListener.tsx";
 
 export interface DataTableColumn {
   field: string;
@@ -161,7 +160,6 @@ export default function DataTable(props: Props) {
           </div>
         </div>
       </div>
-      <KeyListener />
 
       <style lang="scss" scoped>
         {`

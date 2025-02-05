@@ -14,6 +14,7 @@ import { ViewRoute } from "../../types/viewRoute.ts";
 import PositionDetails from "./PositionDetails.tsx";
 import { RouteUtils } from "../../utils/routeUtils.ts";
 import useIsPrerender from "../../hooks/useIsPrerender.ts";
+import { KeyListener } from "../common/KeyListener.tsx";
 
 interface Props {
   isTerminal?: boolean;
@@ -139,6 +140,7 @@ export default function PositionList(props: Props) {
               />
             )}
           </div>
+          <KeyListener />
         </div>
       )}
     </>

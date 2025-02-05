@@ -1,7 +1,6 @@
 import type { KeyboardEvent } from "react";
 import { type JSX, useMemo, useState } from "react";
 import type { DisplayableData } from "../../types/common.ts";
-import { KeyListener } from "./KeyListener.tsx";
 import useKeyHandler from "../../hooks/useKeyHandler.ts";
 
 export interface CardListGroup {
@@ -64,7 +63,6 @@ export default function CardList(props: Props) {
 
   return (
     <div className="size-full">
-      <KeyListener />
       <div
         className={`overflow-y-auto h-full flex flex-col gap-y-5 ${props.className}`}
       >
