@@ -52,7 +52,7 @@ export default function PositionList() {
 
   useKeyHandler((event: KeyboardEvent) => {
     switch (event.key) {
-      case "Tab":
+      case "v":
         setIsGridMode(!isGridMode);
     }
   });
