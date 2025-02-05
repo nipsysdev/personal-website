@@ -43,7 +43,7 @@ export default function DataTable(props: Props) {
       case "Enter":
         if (props.btnClick) {
           props.btnClick(props.entries[selectedIndex]);
-        } else {
+        } else if (props.anchorPath) {
           window.location.replace(
             `${props.anchorPath}${props.entries[selectedIndex][props.refField]}/`,
           );
@@ -66,7 +66,7 @@ export default function DataTable(props: Props) {
       onMouseEnter: () => setSelectedIndex(i),
     } satisfies DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
 
-    if (props.anchorPath) {
+    if (!props.btnClick && props.anchorPath) {
       return (
         <a
           key={key}

@@ -1,12 +1,13 @@
 import type { CardProps } from "../common/CardList.tsx";
 import { useStore } from "@nanostores/react";
 import { I18n } from "../../stores/coreStore.ts";
-import { useEffect, useMemo, useRef } from "react";
+import { type KeyboardEvent, useEffect, useMemo, useRef } from "react";
 import type { Position } from "../../types/work.ts";
 import {
   FormatDevTools,
   FormatWorkPeriod,
 } from "../../utils/position-formatting.ts";
+import useKeyHandler from "../../hooks/useKeyHandler.ts";
 
 export default function PositionCard(props: CardProps) {
   const $i18n = useStore(I18n);
@@ -14,10 +15,25 @@ export default function PositionCard(props: CardProps) {
   const cardRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (props.selected) {
+    if (props.selected && !cardRef.current?.matches(":hover")) {
       cardRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [props.selected]);
+
+  useKeyHandler((event: KeyboardEvent) => {
+    if (!props.selected) return;
+    switch (event.key) {
+      case "Enter":
+        if (props.btnClick) {
+          props.btnClick(props.entry);
+        } else if (props.anchorPath) {
+          window.location.replace(
+            `${props.anchorPath}${props.entry[props.refField]}/`,
+          );
+        }
+        break;
+    }
+  });
 
   return (
     <div

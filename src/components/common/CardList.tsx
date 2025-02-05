@@ -14,8 +14,11 @@ export interface CardListGroup {
 export interface CardProps {
   children: Record<string, DisplayableData>;
   entry: Record<string, DisplayableData>;
+  refField: string;
   selected: boolean;
   onMouseEnter: () => void;
+  anchorPath?: string;
+  btnClick?: (entry: Record<string, DisplayableData>) => void;
 }
 
 interface Props {
@@ -24,6 +27,8 @@ interface Props {
   group: CardListGroup;
   entries: Record<string, DisplayableData>[];
   card: (props: CardProps) => JSX.Element;
+  anchorPath?: string;
+  btnClick?: (entry: Record<string, DisplayableData>) => void;
 }
 
 export default function CardList(props: Props) {
@@ -81,9 +86,12 @@ export default function CardList(props: Props) {
                 <props.card
                   key={entry[props.refField] as string}
                   entry={entry}
+                  refField={props.refField}
                   selected={
                     groupIdx === selectionPos[0] && entryIdx === selectionPos[1]
                   }
+                  anchorPath={props.anchorPath}
+                  btnClick={props.btnClick}
                   onMouseEnter={() => setSelectionPos([groupIdx, entryIdx])}
                 >
                   {entry}

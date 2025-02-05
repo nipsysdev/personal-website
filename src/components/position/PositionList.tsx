@@ -4,7 +4,7 @@ import { RiGridFill, RiTableFill } from "react-icons/ri";
 import DataTable from "../common/DataTable.tsx";
 import PositionColumns from "../../constants/table-data/positionColumns.ts";
 import { Positions } from "../../constants/positions.ts";
-import { useMemo, useState } from "react";
+import { type KeyboardEvent, useMemo, useState } from "react";
 import CardList, { type CardListGroup } from "../common/CardList.tsx";
 import type { Position } from "../../types/work.ts";
 import { PositionType } from "../../types/work.ts";
@@ -15,6 +15,7 @@ import PositionDetails from "./PositionDetails.tsx";
 import { RouteUtils } from "../../utils/routeUtils.ts";
 import useIsPrerender from "../../hooks/useIsPrerender.ts";
 import { KeyListener } from "../common/KeyListener.tsx";
+import useKeyHandler from "../../hooks/useKeyHandler.ts";
 
 interface Props {
   isTerminal?: boolean;
@@ -50,6 +51,13 @@ export default function PositionList(props: Props) {
     }),
     [$i18n],
   );
+
+  useKeyHandler((event: KeyboardEvent) => {
+    switch (event.key) {
+      case "Tab":
+        setIsGridMode(!isGridMode);
+    }
+  });
 
   return (
     <>
@@ -111,22 +119,24 @@ export default function PositionList(props: Props) {
               </div>
 
               <div className="flex-auto">
-                <DataTable
-                  refField={refField}
-                  columns={PositionColumns($i18n)}
-                  entries={positions}
-                  anchorPath={
-                    props.isTerminal
-                      ? undefined
-                      : RouteUtils.getPathForLang(ViewRoute.Experience, $lang)
-                  }
-                  btnClick={
-                    props.isTerminal
-                      ? (entry: Record<string, DisplayableData>) =>
-                          setSelectedPosId((entry as Position).id)
-                      : undefined
-                  }
-                />
+                {!isGridMode && (
+                  <DataTable
+                    refField={refField}
+                    columns={PositionColumns($i18n)}
+                    entries={positions}
+                    anchorPath={
+                      props.isTerminal
+                        ? undefined
+                        : RouteUtils.getPathForLang(ViewRoute.Experience, $lang)
+                    }
+                    btnClick={
+                      props.isTerminal
+                        ? (entry: Record<string, DisplayableData>) =>
+                            setSelectedPosId((entry as Position).id)
+                        : undefined
+                    }
+                  />
+                )}
               </div>
             </div>
 
@@ -137,6 +147,17 @@ export default function PositionList(props: Props) {
                 group={cardGroup}
                 entries={positions}
                 card={PositionCard}
+                anchorPath={
+                  props.isTerminal
+                    ? undefined
+                    : RouteUtils.getPathForLang(ViewRoute.Experience, $lang)
+                }
+                btnClick={
+                  props.isTerminal
+                    ? (entry: Record<string, DisplayableData>) =>
+                        setSelectedPosId((entry as Position).id)
+                    : undefined
+                }
               />
             )}
           </div>
