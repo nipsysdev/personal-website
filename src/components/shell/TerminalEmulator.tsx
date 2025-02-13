@@ -8,13 +8,16 @@ import {
   ShellSubmission,
 } from "../../stores/shellStore.ts";
 import { I18n, IsTerminal, LastKeyDown } from "../../stores/coreStore.ts";
-import { createRef, type KeyboardEvent, useEffect, useState } from "react";
+import { createRef, useEffect, useState } from "react";
 import TerminalPrompt from "./TerminalPrompt.tsx";
 import { Command, type CommandEntry } from "../../types/shell.ts";
 import { ParseEntry } from "../../utils/shellUtils.ts";
 import UnknownCmdOutput from "../outputs/UnknownCmdOutput.tsx";
-import useKeyHandler from "../../hooks/useKeyHandler.ts";
 import useIsPrerender from "../../hooks/useIsPrerender.ts";
+import { Key } from "../../types/keyboard.ts";
+import useTermRouter from "../../hooks/useTermRouter.ts";
+import { ViewRoute } from "../../types/routing.ts";
+import AppLink from "../common/AppLink.tsx";
 
 export default function TerminalEmulator() {
   const $i18n = useStore(I18n);
@@ -79,15 +82,9 @@ export default function TerminalEmulator() {
     ShellInput.set("");
   }, [$input]);
 
-  useKeyHandler((event: KeyboardEvent) => {
-    if (event.ctrlKey && event.key === "c") {
-      return exitFullscreen();
-    }
-  });
-
-  const exitFullscreen = () => {
+  useTermRouter(ViewRoute.Terminal, () => {
     setFullscreenEntry(null);
-  };
+  });
 
   const standardView = (
     <div
@@ -126,12 +123,13 @@ export default function TerminalEmulator() {
         <div className="flex text-steelblue">
           <div className="flex-auto flex items-center justify-end text-sm">
             {$i18n.shell.fullScreenMode}&nbsp;/&nbsp;
-            <button
-              className="font-bold text-darkgoldenrod cursor-pointer text-base"
-              onClick={exitFullscreen}
+            <AppLink
+              route={ViewRoute.Terminal}
+              listen={{ key: Key.c, ctrlKey: true }}
+              goldenLink
             >
-              [{$i18n.core.exit}]
-            </button>
+              {$i18n.core.exit}
+            </AppLink>
             &nbsp;{$i18n.core.or}&nbsp;&lt;{$i18n.core.ctrlc}&gt;
           </div>
         </div>

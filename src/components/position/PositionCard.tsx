@@ -1,13 +1,12 @@
 import type { CardProps } from "../common/CardList.tsx";
 import { useStore } from "@nanostores/react";
 import { I18n } from "../../stores/coreStore.ts";
-import { type KeyboardEvent, useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import type { Position } from "../../types/work.ts";
 import {
   FormatDevTools,
   FormatWorkPeriod,
 } from "../../utils/position-formatting.ts";
-import useKeyHandler from "../../hooks/useKeyHandler.ts";
 
 export default function PositionCard(props: CardProps) {
   const $i18n = useStore(I18n);
@@ -15,34 +14,18 @@ export default function PositionCard(props: CardProps) {
   const cardRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (props.selected && !cardRef.current?.matches(":hover")) {
+    if (props.isSelected && !cardRef.current?.matches(":hover")) {
       cardRef.current?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [props.selected]);
-
-  useKeyHandler((event: KeyboardEvent) => {
-    if (!props.selected) return;
-    switch (event.key) {
-      case "Enter":
-        if (props.btnClick) {
-          props.btnClick(props.entry);
-        } else if (props.anchorPath) {
-          window.location.replace(
-            `${props.anchorPath}${props.entry[props.refField]}/`,
-          );
-        }
-        break;
-    }
-  });
+  }, [props.isSelected]);
 
   return (
     <div
-      className={`border ${props.selected ? "border-steelblue" : "border-darkslategray"} overflow-hidden text-sm cursor-pointer`}
-      onMouseEnter={props.onMouseEnter}
+      className={`border ${props.isSelected ? "border-steelblue" : "border-darkslategray"} overflow-hidden text-sm`}
       ref={cardRef}
     >
       <div
-        className={`flex bg-darkslategray px-2 pt-1 ${props.selected ? "bg-steelblue" : "text-steelblue"}`}
+        className={`flex bg-darkslategray px-2 pt-1 ${props.isSelected ? "bg-steelblue" : "text-steelblue"}`}
       >
         <div className="flex-auto">
           <span className="text-xs">{$i18n.experience.company}</span>

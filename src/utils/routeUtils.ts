@@ -1,4 +1,4 @@
-import { ViewRoute } from "../types/viewRoute.ts";
+import { ViewRoute } from "../types/routing.ts";
 import { Lang } from "../constants/lang.ts";
 
 export const RouteUtils = {

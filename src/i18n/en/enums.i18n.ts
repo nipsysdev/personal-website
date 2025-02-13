@@ -5,7 +5,7 @@ import {
   PositionRole,
   PositionType,
 } from "../../types/work.ts";
-import { ViewRoute } from "../../types/viewRoute.ts";
+import { ViewRoute } from "../../types/routing.ts";
 
 export default {
   viewRoute: {

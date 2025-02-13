@@ -1,4 +1,4 @@
-import type { ViewRoute } from "../types/viewRoute.ts";
+import type { ViewRoute } from "../types/routing.ts";
 import type { Command } from "../types/shell.ts";
 import {
   Company,

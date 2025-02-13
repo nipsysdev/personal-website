@@ -10,7 +10,8 @@ import { ShellSubmission } from "../../stores/shellStore.ts";
 import { GetEntryInput } from "../../utils/shellUtils.ts";
 import Commands from "../../constants/commands.ts";
 import { LastKeyDown } from "../../stores/coreStore.ts";
-import { IsNewKeyEvent } from "../../utils/keyboardUtils.ts";
+import { IsNewKeyEvent } from "../../utils/compareUtils.ts";
+import { Key } from "../../types/keyboard.ts";
 
 interface Props {
   i18nContent: I18nContent;
@@ -185,22 +186,22 @@ export default class TerminalPrompt extends Component<Props, State> {
   }
 
   private keyDownHandler(event: KeyboardEvent): void {
-    if (event.ctrlKey && event.key === "c") {
+    if (event.ctrlKey && event.key === Key.c) {
       return this.resetEntry();
     }
 
     switch (event.key) {
-      case "Enter":
+      case Key.Enter:
         LastKeyDown.set(null);
         this.submit();
         break;
-      case "ArrowUp":
+      case Key.ArrowUp:
         this.usePreviousEntry();
         break;
-      case "ArrowDown":
+      case Key.ArrowDown:
         this.useNextEntry();
         break;
-      case "Tab":
+      case Key.Tab:
         event.preventDefault();
         this.autoComplete();
     }

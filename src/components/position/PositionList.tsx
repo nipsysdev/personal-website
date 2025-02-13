@@ -1,5 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { CurrentLang, I18n, IsTerminal } from "../../stores/coreStore.ts";
+import { I18n, IsTerminal } from "../../stores/coreStore.ts";
 import { RiGridFill, RiTableFill } from "react-icons/ri";
 import DataTable from "../common/DataTable.tsx";
 import PositionColumns from "../../constants/table-data/positionColumns.ts";
@@ -10,15 +10,15 @@ import type { Position } from "../../types/work.ts";
 import { PositionType } from "../../types/work.ts";
 import type { DisplayableData } from "../../types/common.ts";
 import PositionCard from "./PositionCard.tsx";
-import { ViewRoute } from "../../types/viewRoute.ts";
+import { type AppRoute, ViewRoute } from "../../types/routing.ts";
 import PositionDetails from "./PositionDetails.tsx";
-import { RouteUtils } from "../../utils/routeUtils.ts";
 import useIsPrerender from "../../hooks/useIsPrerender.ts";
 import { KeyListener } from "../common/KeyListener.tsx";
 import useKeyHandler from "../../hooks/useKeyHandler.ts";
+import { Key } from "../../types/keyboard.ts";
+import useTermRouter from "../../hooks/useTermRouter.ts";
 
 export default function PositionList() {
-  const $lang = useStore(CurrentLang);
   const $i18n = useStore(I18n);
   const $isTerm = useStore(IsTerminal);
 
@@ -50,9 +50,13 @@ export default function PositionList() {
     [$i18n],
   );
 
+  useTermRouter(ViewRoute.Experience, (appRoute: AppRoute) => {
+    setSelectedPosId((appRoute.param as number) ?? null);
+  });
+
   useKeyHandler((event: KeyboardEvent) => {
     switch (event.key) {
-      case "v":
+      case Key.v:
         setIsGridMode(!isGridMode);
     }
   });
@@ -120,17 +124,7 @@ export default function PositionList() {
                     refField={refField}
                     columns={PositionColumns($i18n)}
                     entries={positions}
-                    anchorPath={
-                      $isTerm
-                        ? undefined
-                        : RouteUtils.getPathForLang(ViewRoute.Experience, $lang)
-                    }
-                    btnClick={
-                      $isTerm
-                        ? (entry: Record<string, DisplayableData>) =>
-                            setSelectedPosId((entry as Position).id)
-                        : undefined
-                    }
+                    route={ViewRoute.Experience}
                   />
                 )}
               </div>
@@ -139,21 +133,12 @@ export default function PositionList() {
             {!isPrerender && (
               <CardList
                 className={!isGridMode ? "lg:hidden" : ""}
+                isVisible={isGridMode}
                 refField={refField}
                 group={cardGroup}
                 entries={positions}
                 card={PositionCard}
-                anchorPath={
-                  $isTerm
-                    ? undefined
-                    : RouteUtils.getPathForLang(ViewRoute.Experience, $lang)
-                }
-                btnClick={
-                  $isTerm
-                    ? (entry: Record<string, DisplayableData>) =>
-                        setSelectedPosId((entry as Position).id)
-                    : undefined
-                }
+                route={ViewRoute.Experience}
               />
             )}
           </div>

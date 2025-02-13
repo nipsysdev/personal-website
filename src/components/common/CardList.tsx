@@ -2,6 +2,9 @@ import type { KeyboardEvent } from "react";
 import { type JSX, useMemo, useState } from "react";
 import type { DisplayableData } from "../../types/common.ts";
 import useKeyHandler from "../../hooks/useKeyHandler.ts";
+import { Key } from "../../types/keyboard.ts";
+import { ViewRoute } from "../../types/routing.ts";
+import AppLink from "./AppLink.tsx";
 
 export interface CardListGroup {
   field: string;
@@ -15,20 +18,17 @@ export interface CardProps {
   children: Record<string, DisplayableData>;
   entry: Record<string, DisplayableData>;
   refField: string;
-  selected: boolean;
-  onMouseEnter: () => void;
-  anchorPath?: string;
-  btnClick?: (entry: Record<string, DisplayableData>) => void;
+  isSelected: boolean;
 }
 
 interface Props {
   className?: string;
   refField: string;
+  isVisible: boolean;
   group: CardListGroup;
   entries: Record<string, DisplayableData>[];
   card: (props: CardProps) => JSX.Element;
-  anchorPath?: string;
-  btnClick?: (entry: Record<string, DisplayableData>) => void;
+  route: ViewRoute;
 }
 
 export default function CardList(props: Props) {
@@ -42,19 +42,19 @@ export default function CardList(props: Props) {
 
   useKeyHandler((event: KeyboardEvent) => {
     switch (event.key) {
-      case "ArrowUp":
+      case Key.ArrowUp:
         setSelectionPos([Math.max(selectionPos[0] - 1, 0), 0]);
         break;
-      case "ArrowDown":
+      case Key.ArrowDown:
         setSelectionPos([
           Math.min(selectionPos[0] + 1, groupKeys.length - 1),
           0,
         ]);
         break;
-      case "ArrowLeft":
+      case Key.ArrowLeft:
         setSelectionPos([selectionPos[0], Math.max(selectionPos[1] - 1, 0)]);
         break;
-      case "ArrowRight":
+      case Key.ArrowRight:
         setSelectionPos([
           selectionPos[0],
           Math.min(
@@ -82,21 +82,31 @@ export default function CardList(props: Props) {
             </div>
 
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mr-1">
-              {groupedEntries[key].map((entry, entryIdx) => (
-                <props.card
-                  key={entry[props.refField] as string}
-                  entry={entry}
-                  refField={props.refField}
-                  selected={
-                    groupIdx === selectionPos[0] && entryIdx === selectionPos[1]
-                  }
-                  anchorPath={props.anchorPath}
-                  btnClick={props.btnClick}
-                  onMouseEnter={() => setSelectionPos([groupIdx, entryIdx])}
-                >
-                  {entry}
-                </props.card>
-              ))}
+              {groupedEntries[key].map((entry, entryIdx) => {
+                const isSelected =
+                  groupIdx === selectionPos[0] && entryIdx === selectionPos[1];
+                return (
+                  <AppLink
+                    key={`${entry[props.refField]}`}
+                    route={props.route}
+                    param={entry[props.refField] as number | string}
+                    listen={{
+                      key: Key.Enter,
+                      deactivated: !props.isVisible || !isSelected,
+                    }}
+                    className={`border ${isSelected ? "border-steelblue" : "border-darkslategray"} overflow-hidden text-sm`}
+                    onMouseEnter={() => setSelectionPos([groupIdx, entryIdx])}
+                  >
+                    <props.card
+                      entry={entry}
+                      refField={props.refField}
+                      isSelected={isSelected}
+                    >
+                      {entry}
+                    </props.card>
+                  </AppLink>
+                );
+              })}
             </div>
           </div>
         ))}

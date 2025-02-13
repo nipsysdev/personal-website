@@ -1,14 +1,14 @@
-import { CurrentLang, I18n } from "../../stores/coreStore.ts";
+import { I18n } from "../../stores/coreStore.ts";
 import { useStore } from "@nanostores/react";
 import { useMemo } from "react";
 import { Positions } from "../../constants/positions.ts";
 import { FormatWorkPeriod } from "../../utils/position-formatting.ts";
 import { Companies } from "../../constants/companies.ts";
 import { PositionRole } from "../../types/work.ts";
-import { ViewRoute } from "../../types/viewRoute.ts";
-import { RouteUtils } from "../../utils/routeUtils.ts";
-import useKeyHandler from "../../hooks/useKeyHandler.ts";
+import { ViewRoute } from "../../types/routing.ts";
 import { KeyListener } from "../common/KeyListener.tsx";
+import AppLink from "../common/AppLink.tsx";
+import { Key } from "../../types/keyboard.ts";
 
 interface Props {
   positionId: number;
@@ -16,7 +16,6 @@ interface Props {
 }
 
 export default function PositionDetails(props: Props) {
-  const $lang = useStore(CurrentLang);
   const $i18n = useStore(I18n);
 
   const position = useMemo(
@@ -31,41 +30,6 @@ export default function PositionDetails(props: Props) {
     () => (position ? Companies[position.company] : null),
     [],
   );
-
-  useKeyHandler((event) => {
-    if (event.key === "Backspace") {
-      if (props.backOnClick) {
-        props.backOnClick();
-      } else {
-        window.location.href = RouteUtils.getPathForLang(
-          ViewRoute.Experience,
-          $lang,
-        );
-      }
-    }
-  });
-
-  const backEl = () => {
-    const classNames = "font-bold text-darkgoldenrod cursor-pointer text-base";
-    const content = `[${$i18n.core.back}]`;
-
-    if (props.backOnClick) {
-      return (
-        <button className={classNames} onClick={props.backOnClick}>
-          {content}
-        </button>
-      );
-    }
-
-    return (
-      <a
-        className={classNames}
-        href={RouteUtils.getPathForLang(ViewRoute.Experience, $lang)}
-      >
-        {content}
-      </a>
-    );
-  };
 
   return (
     position && (
@@ -83,7 +47,13 @@ export default function PositionDetails(props: Props) {
           </div>
 
           <div className="flex items-center text-steelblue text-right text-nowrap">
-            {backEl()}
+            <AppLink
+              route={ViewRoute.Experience}
+              listen={{ key: Key.Backspace }}
+              goldenLink
+            >
+              {$i18n.core.back}
+            </AppLink>
             &nbsp;{$i18n.core.or} &lt;{$i18n.core.backspace}&gt;
           </div>
         </div>

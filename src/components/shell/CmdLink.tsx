@@ -47,10 +47,7 @@ export default function CmdLink(props: Props) {
   };
 
   return (
-    <button
-      className="font-bold text-darkgoldenrod cursor-pointer inline-flex"
-      onClick={submitCmd}
-    >
+    <button className="golden-link inline-flex" onClick={submitCmd}>
       <span>[{props.cmdName ?? props.cmdInfo?.name}</span>
       {cmdArgOptionRender()}]
     </button>

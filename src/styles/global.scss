@@ -11,6 +11,10 @@ body {
   caret-color: #fff;
 }
 
+.golden-link {
+  @apply font-bold text-darkgoldenrod cursor-pointer;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
