@@ -12,7 +12,7 @@ import { createRef, useEffect, useState } from "react";
 import TerminalPrompt from "./TerminalPrompt.tsx";
 import { Command, type CommandEntry } from "../../types/shell.ts";
 import { ParseEntry } from "../../utils/shellUtils.ts";
-import UnknownCmdOutput from "../outputs/UnknownCmdOutput.tsx";
+import UnknownCmdOutput from "../cmd-outputs/UnknownCmdOutput.tsx";
 import useIsPrerender from "../../hooks/useIsPrerender.ts";
 import { Key } from "../../types/keyboard.ts";
 import useTermRouter from "../../hooks/useTermRouter.ts";

@@ -4,7 +4,7 @@ import { RiGridFill, RiTableFill } from "react-icons/ri";
 import DataTable from "../common/DataTable.tsx";
 import PositionColumns from "../../constants/table-data/positionColumns.ts";
 import { Positions } from "../../constants/positions.ts";
-import { type KeyboardEvent, useMemo, useState } from "react";
+import { type KeyboardEvent, Component, useMemo, useState } from "react";
 import CardList, { type CardListGroup } from "../common/CardList.tsx";
 import type { Position } from "../../types/work.ts";
 import { PositionType } from "../../types/work.ts";
@@ -17,6 +17,7 @@ import { KeyListener } from "../common/KeyListener.tsx";
 import useKeyHandler from "../../hooks/useKeyHandler.ts";
 import { Key } from "../../types/keyboard.ts";
 import useTermRouter from "../../hooks/useTermRouter.ts";
+import type { CommandOutputProps } from "../../types/shell.ts";
 
 export default function PositionList() {
   const $i18n = useStore(I18n);
@@ -147,4 +148,10 @@ export default function PositionList() {
       )}
     </>
   );
+}
+
+export class ExperienceOutput extends Component<CommandOutputProps> {
+  render() {
+    return <PositionList />;
+  }
 }

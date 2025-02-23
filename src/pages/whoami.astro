@@ -1,7 +1,11 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
+import InitWrapper from "../components/wrappers/InitWrapper";
+import AboutMe from "../components/about-me/AboutMe";
 ---
 
 <PageLayout>
-  <div># todo: define whoami</div>
+  <InitWrapper env={import.meta.env} lang={Astro.currentLocale} client:load>
+    <AboutMe client:load />
+  </InitWrapper>
 </PageLayout>
