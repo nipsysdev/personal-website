@@ -28,4 +28,16 @@ export const RouteUtils = {
       ? path === route
       : path.startsWith(route);
   },
+
+  getQueryParams: (): Record<string, string> => {
+    return Object.fromEntries(
+      new URLSearchParams(window.location.search).entries(),
+    );
+  },
+
+  setQueryParams: (queryState: Record<string, string>, baseRoute: string) => {
+    const params = new URLSearchParams(queryState);
+    const queryStr = params.size ? `?${params.toString()}` : "";
+    window.history.replaceState({}, "", `${baseRoute}${queryStr}`);
+  },
 };

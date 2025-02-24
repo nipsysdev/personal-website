@@ -4,7 +4,13 @@ import { RiGridFill, RiTableFill } from "react-icons/ri";
 import DataTable from "../common/DataTable.tsx";
 import PositionColumns from "../../constants/table-data/positionColumns.ts";
 import { Positions } from "../../constants/positions.ts";
-import { type KeyboardEvent, Component, useMemo, useState } from "react";
+import {
+  Component,
+  type KeyboardEvent,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import CardList, { type CardListGroup } from "../common/CardList.tsx";
 import type { Position } from "../../types/work.ts";
 import { PositionType } from "../../types/work.ts";
@@ -18,15 +24,31 @@ import useKeyHandler from "../../hooks/useKeyHandler.ts";
 import { Key } from "../../types/keyboard.ts";
 import useTermRouter from "../../hooks/useTermRouter.ts";
 import type { CommandOutputProps } from "../../types/shell.ts";
+import useQueryHandler from "../../hooks/useQueryHandler.ts";
 
 export default function PositionList() {
   const $i18n = useStore(I18n);
   const $isTerm = useStore(IsTerminal);
 
-  const [isGridMode, setIsGridMode] = useState(false);
   const isPrerender = useIsPrerender();
+  const queryHandler = useQueryHandler(ViewRoute.Experience);
+  useTermRouter(ViewRoute.Experience, (appRoute: AppRoute) => {
+    setSelectedPosId((appRoute.param as number) ?? null);
+  });
+  useKeyHandler((event: KeyboardEvent) => {
+    switch (event.key) {
+      case Key.v:
+        updateViewMode(!isGridMode);
+    }
+  });
+
+  const [isGridMode, setIsGridMode] = useState(false);
   const [selectedPosId, setSelectedPosId] = useState<number | null>(null);
   const refField = "id";
+
+  useEffect(() => {
+    setIsGridMode(Boolean(queryHandler.state["grid_view"]));
+  }, [queryHandler.state]);
 
   const positions = useMemo(() => {
     return Positions.sort((a, b) => (a.id < b.id ? 1 : -1));
@@ -51,16 +73,13 @@ export default function PositionList() {
     [$i18n],
   );
 
-  useTermRouter(ViewRoute.Experience, (appRoute: AppRoute) => {
-    setSelectedPosId((appRoute.param as number) ?? null);
-  });
+  const updateViewMode = (isGridMode: boolean) => {
+    setIsGridMode(isGridMode);
 
-  useKeyHandler((event: KeyboardEvent) => {
-    switch (event.key) {
-      case Key.v:
-        setIsGridMode(!isGridMode);
+    if (!$isTerm) {
+      queryHandler.setParam("grid_view", isGridMode ? "true" : null);
     }
-  });
+  };
 
   return (
     <>
@@ -87,7 +106,7 @@ export default function PositionList() {
                     <RiTableFill
                       className={`opacity-30 lg:opacity-100 ${!isGridMode ? "lg:text-steelblue" : ""}`}
                       size={20}
-                      onClick={() => setIsGridMode(false)}
+                      onClick={() => updateViewMode(false)}
                     />
                   </div>
                   /
@@ -95,7 +114,7 @@ export default function PositionList() {
                     <RiGridFill
                       className={`text-steelblue lg:text-darkgray ${isGridMode ? "lg:text-steelblue" : ""}`}
                       size={20}
-                      onClick={() => setIsGridMode(true)}
+                      onClick={() => updateViewMode(true)}
                     />
                   </div>
                 </div>

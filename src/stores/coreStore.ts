@@ -13,3 +13,5 @@ export const LastKeyDown = atom<KeyboardEvent | null>(null);
 export const OldKeyDown = atom<KeyboardEvent | null>(null);
 
 export const IsTerminal = atom(false);
+
+export const QueryState = atom<Record<string, string>>({});
