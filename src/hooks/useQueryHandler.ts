@@ -4,7 +4,7 @@ import { CurrentLang, QueryState } from "../stores/coreStore.ts";
 import { RouteUtils } from "../utils/routeUtils.ts";
 import type { ViewRoute } from "../types/routing.ts";
 
-export default function useQueryHandler(route: ViewRoute) {
+export default function useQueryHandler(route?: ViewRoute) {
   const $queryState = useStore(QueryState);
   const $lang = useStore(CurrentLang);
 
@@ -20,10 +20,12 @@ export default function useQueryHandler(route: ViewRoute) {
       return;
     }
 
-    RouteUtils.setQueryParams(
-      $queryState,
-      RouteUtils.getPathForLang(route, $lang),
-    );
+    if (route) {
+      RouteUtils.updateRouteQuery(
+        $queryState,
+        RouteUtils.getPathForLang(route, $lang),
+      );
+    }
   }, [$queryState]);
 
   return {

@@ -127,6 +127,7 @@ export default function TerminalEmulator() {
               route={ViewRoute.Terminal}
               listen={{ key: Key.c, ctrlKey: true }}
               goldenLink
+              resetQueryParams
             >
               {$i18n.core.exit}
             </AppLink>

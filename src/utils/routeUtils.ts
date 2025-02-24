@@ -35,9 +35,17 @@ export const RouteUtils = {
     );
   },
 
-  setQueryParams: (queryState: Record<string, string>, baseRoute: string) => {
+  getRouteWithParams: (
+    queryState: Record<string, string>,
+    baseRoute: string,
+  ) => {
     const params = new URLSearchParams(queryState);
     const queryStr = params.size ? `?${params.toString()}` : "";
-    window.history.replaceState({}, "", `${baseRoute}${queryStr}`);
+    return `${baseRoute}${queryStr}`;
+  },
+
+  updateRouteQuery: (queryState: Record<string, string>, baseRoute: string) => {
+    const route = RouteUtils.getRouteWithParams(queryState, baseRoute);
+    window.history.replaceState({}, "", route);
   },
 };

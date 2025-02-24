@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/en";
 import "dayjs/locale/fr";
 import useIsPrerender from "../../hooks/useIsPrerender.ts";
+import useQueryHandler from "../../hooks/useQueryHandler.ts";
 
 interface Props {
   env: Record<string, unknown>;
@@ -14,6 +15,7 @@ interface Props {
 
 export default function InitWrapper(props: Props) {
   const isPrerender = useIsPrerender();
+  useQueryHandler();
 
   useEffect(() => {
     AstroEnv.set(props.env);
