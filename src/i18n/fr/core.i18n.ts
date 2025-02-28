@@ -1,7 +1,7 @@
 import type { I18nDict } from "../i18nTypes.ts";
 
 export default {
-  siteTitle: "nipsysdev / xav",
+  siteTitle: "xav / nipsysdev",
   sourceCode: "Code Source",
   web2: "Web2 héberge cette version.",
   web3: "Web3 héberge cette version 🌐",
