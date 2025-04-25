@@ -16,7 +16,9 @@
     "build": "astro build",
     "build:web3": "astro build --mode web3",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@astrojs/react": "^4.1.4",
