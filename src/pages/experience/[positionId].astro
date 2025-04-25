@@ -3,7 +3,6 @@ import PageLayout from "../../layouts/PageLayout.astro";
 import { Positions } from "../../constants/positions";
 import PositionDetails from "../../components/position/PositionDetails";
 import InitWrapper from "../../components/wrappers/InitWrapper";
-import { IsWeb3 } from "../../stores/coreStore";
 
 export function getStaticPaths() {
   return Positions.map((position) => ({
